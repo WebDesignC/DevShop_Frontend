@@ -1,5 +1,5 @@
 import '../styles/Footer.css';
-
+import {Link} from 'react-router-dom'
 
 export default function Footer() {
 return (
@@ -7,7 +7,9 @@ return (
     <div className = "section">
         <div>
             <div className='logoContainer'>
-                <img src="https://i.postimg.cc/44KR9BZZ/merckart.png" alt="Merckart Logo" className='logoImage' />
+                <Link to='/'>
+                    <img src="https://i.postimg.cc/44KR9BZZ/merckart.png" alt="Merckart Logo" className='logoImage' />
+                </Link>
             </div>
             <div className='socialIcons'>
                 <a href="https://www.meta.com" target="_blank" rel="noopener noreferrer" aria-label="Meta">
@@ -26,24 +28,24 @@ return (
         <div className="linkItem">
             <h2>Ayuda</h2>
             <ul className="listsetting">
-                <li>FAQ</li>
-                <li>Terms & conditions</li>
-                <li>Help center</li>
+                <li> <Link> FAQ </Link></li>
+                <li> <Link> Terms & conditions </Link> </li>
+                <li> <Link> Help center </Link></li>
             </ul>
         </div>
          <div className="linkItem">
             <h2>Contacto</h2>
             <ul className="listsetting">
-                <li>ChatBot</li>
-                <li>E-mail</li>
+                <li> <Link>ChatBot</Link></li>
+                <li><Link>E-mail</Link></li>
             </ul>
         </div>
         <div className="linkItem">
             <h2>Cuenta</h2>
             <ul className="listsetting">
-                <li>👨🏻‍💻 Login</li>
-                <li>🛒 Carrito de compras</li>
-                <li>❤️️ Favoritos</li>
+                <li>👨🏻‍💻 <Link>Login </Link></li>
+                <li>🛒 <Link>Carrito de compras </Link></li>
+                <li>❤️️ <Link>Favoritos </Link></li>
             </ul>
         </div>
         </div>
@@ -51,7 +53,9 @@ return (
 
     <div className="copyright">
         <p>© 2025 MercArt. All rights reserved.</p>
-        <p>Acerca de nosotros</p>
+        <Link  to = '/about'> 
+            <p>Acerca de nosotros</p>
+        </Link>
 
     </div> 
     </footer>
