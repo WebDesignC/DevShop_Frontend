@@ -1,46 +1,46 @@
-import './Footer.css';
+import '../styles/Footer.css';
 
 
 export default function Footer() {
 return (
-    <footer className="footer">}>
-    <div style={styles.section}>
+    <footer className = "footer">
+    <div className = "section">
         <div>
-            <div style={styles.logoContainer}>
-                <img src="https://i.postimg.cc/44KR9BZZ/merckart.png" alt="Merckart Logo" style={styles.logoImage} />
+            <div className='logoContainer'>
+                <img src="https://i.postimg.cc/44KR9BZZ/merckart.png" alt="Merckart Logo" className='logoImage' />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', width: '100%' }}>
-                <a href="https://www.meta.com" target="_blank" rel="noopener noreferrer" style={styles.iconLink} aria-label="Meta">
-                    <img src="https://postimg.cc/Pp11zwHC" alt="Meta Logo" style={styles.icons} />
+            <div className='socialIcons'>
+                <a href="https://www.meta.com" target="_blank" rel="noopener noreferrer" aria-label="Meta">
+                    <img src="https://postimg.cc/Pp11zwHC" alt="Meta Logo" className='icons' />
                 </a>
-                 <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" style={styles.iconLink} aria-label="Instagram">
-                <img src= "https://i.postimg.cc/B6VN3TwB/insta.png" alt="Instagram Logo" style={styles.icons} />
+                 <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"  aria-label="Instagram">
+                <img src= "https://i.postimg.cc/B6VN3TwB/insta.png" alt="Instagram Logo" className='icons' />
                 </a>
-                <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" style={styles.iconLink} aria-label="TikTok">
-                    <img src="https://i.postimg.cc/65nsHqym/tiktok.png" alt="Tik Tok Logo" style={styles.icons} />
+                <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer"  aria-label="TikTok">
+                    <img src="https://i.postimg.cc/65nsHqym/tiktok.png" alt="Tik Tok Logo"className='icons' />
                     </a>
             </div>
    </div>
 
-        <div style={styles.linksContainer}>
-        <div style={styles.linkItem}>
+        <div className="linksContainer">
+        <div className="linkItem">
             <h3>Help</h3>
-            <ul style={styles.listsetting}>
+            <ul className="listsetting">
                 <li>FAQ</li>
                 <li>Terms & conditions</li>
                 <li>Help center</li>
             </ul>
         </div>
-        <div style={styles.linkItem}>
+         <div className="linkItem">
             <h3>Contact</h3>
-            <ul style={styles.listsetting}>
+            <ul className="listsetting">
                 <li>ChatBot</li>
                 <li>E-mail</li>
             </ul>
         </div>
-        <div style={styles.linkItem}>
+        <div className="linkItem">
             <h3>Account</h3>
-            <ul style={styles.listsetting}>
+            <ul className="listsetting">
                 <li>👨🏻‍💻 Login</li>
                 <li>🛒 Carrito de compras</li>
                 <li>❤️️ Favoritos</li>
@@ -49,7 +49,7 @@ return (
         </div>
     </div>
 
-    <div style={styles.copyright}>
+    <div className="copyright">
         <p>© 2025 MercArt. All rights reserved.</p>
         <p>Acerca de nosotros</p>
 
