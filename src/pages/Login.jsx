@@ -30,7 +30,10 @@ export default function Login() {
                 </div>
 
                 <div className='login-video-container'>
-                    <video src="https://videos.pexels.com/video-files/5585939/5585939-hd_1920_1080_25fps.mp4" className='Video'></video>
+                    <video src="https://videos.pexels.com/video-files/5585939/5585939-hd_1920_1080_25fps.mp4" className='Video'
+                    autoPlay
+                    loop
+                    muted></video>
                 </div>
             </div>
         </div>
