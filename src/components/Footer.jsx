@@ -24,7 +24,7 @@ return (
 
         <div className="linksContainer">
         <div className="linkItem">
-            <h3>Help</h3>
+            <h2>Ayuda</h2>
             <ul className="listsetting">
                 <li>FAQ</li>
                 <li>Terms & conditions</li>
@@ -32,14 +32,14 @@ return (
             </ul>
         </div>
          <div className="linkItem">
-            <h3>Contact</h3>
+            <h2>Contacto</h2>
             <ul className="listsetting">
                 <li>ChatBot</li>
                 <li>E-mail</li>
             </ul>
         </div>
         <div className="linkItem">
-            <h3>Account</h3>
+            <h2>Cuenta</h2>
             <ul className="listsetting">
                 <li>👨🏻‍💻 Login</li>
                 <li>🛒 Carrito de compras</li>

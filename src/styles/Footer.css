@@ -1,11 +1,13 @@
+
+
 .footer {
   margin: 10px;
   border-radius: 10px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  background-color: #222;
-  color: #fff;
+  background-color: #8B2DE9;
+  color:#F4F2EF ;
 }
 
 .section {
@@ -74,4 +76,8 @@
   text-align: center;
   font-size: 0.9rem;
   opacity: 0.7;
+  color: #F4F2EF
+}
+ul{
+    font-size: 1.5rem;
 }
