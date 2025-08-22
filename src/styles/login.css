@@ -53,6 +53,11 @@ flex-direction: column;
 align-items: center;
 border-radius: 15px;
 }
+.login-header {
+    text-align: center;
+    color: #F4F2EF;
+    margin-bottom: 20px;
+}
 /* 
 
 
