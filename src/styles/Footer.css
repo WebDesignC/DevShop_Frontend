@@ -4,11 +4,6 @@
     --gris-oscuro: #b5bfe0;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 .footer {
     background-color: var(--azul-navy);
@@ -47,10 +42,10 @@
     padding: 2rem;
     display: flex;
     gap: 2rem;
+    font-size: 2rem;
 }
 
 .social-icons i {
-    font-size: 1.8rem;
     color: var(--gris-claro);
     transition: color 0.3s;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Footer.css'; 
+import { FaInstagram, FaFacebook, FaYoutube  } from "react-icons/fa";
 
 const imgURL = 'https://i.postimg.cc/44KR9BZZ/merckart.png';
 
@@ -11,9 +12,9 @@ function Footer() {
         <div className="footer-section-logo logo-section">
           <img className="logo" src={imgURL} alt="Mercart Logo" />
           <div className='social-icons'>
-            <i class="fa-brands fa-instagram"></i>
-            <i class="fa-brands fa-facebook fa-fade"></i>
-            <i class="fa-brands fa-instagram"></i>
+            <FaInstagram/>
+            <FaFacebook/>
+            <FaYoutube />
           </div>
         </div>
         
