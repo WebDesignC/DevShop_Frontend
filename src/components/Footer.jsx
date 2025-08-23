@@ -1,3 +1,4 @@
+
 import React from 'react';
 import '../styles/Footer.css'; 
 import { FaInstagram, FaFacebook, FaYoutube  } from "react-icons/fa";
@@ -58,3 +59,4 @@ function Footer() {
 };
 
 export default Footer;
+
