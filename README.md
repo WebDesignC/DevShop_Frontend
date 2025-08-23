@@ -16,6 +16,3 @@ Colección de íconos populares como Font Awesome, Material Icons, entre otros, 
 
 ```jsx
 import { IconName } from "react-icons/fa";
-
-
-

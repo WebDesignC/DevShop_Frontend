@@ -1,63 +1,62 @@
-import '../styles/Footer.css';
-import {Link} from 'react-router-dom'
 
-export default function Footer() {
-return (
-    <footer className = "footer">
-    <div className = "section">
-        <div>
-            <div className='logoContainer'>
-                <Link to='/'>
-                    <img src="https://i.postimg.cc/44KR9BZZ/merckart.png" alt="Merckart Logo" className='logoImage' />
-                </Link>
-            </div>
-            <div className='socialIcons'>
-                <a href="https://www.meta.com" target="_blank" rel="noopener noreferrer" aria-label="Meta">
-                    <img src="https://postimg.cc/Pp11zwHC" alt="Meta Logo" className='icons' />
-                </a>
-                 <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"  aria-label="Instagram">
-                <img src= "https://i.postimg.cc/B6VN3TwB/insta.png" alt="Instagram Logo" className='icons' />
-                </a>
-                <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer"  aria-label="TikTok">
-                    <img src="https://i.postimg.cc/65nsHqym/tiktok.png" alt="Tik Tok Logo"className='icons' />
-                    </a>
-            </div>
-   </div>
+import React from 'react';
+import '../styles/Footer.css'; 
+import { FaInstagram, FaFacebook, FaYoutube  } from "react-icons/fa";
 
-        <div className="linksContainer">
-        <div className="linkItem">
-            <h2>Ayuda</h2>
-            <ul className="listsetting">
-                <li> <Link> FAQ </Link></li>
-                <li> <Link> Terms & conditions </Link> </li>
-                <li> <Link> Help center </Link></li>
-            </ul>
-        </div>
-         <div className="linkItem">
-            <h2>Contacto</h2>
-            <ul className="listsetting">
-                <li> <Link>ChatBot</Link></li>
-                <li><Link>E-mail</Link></li>
-            </ul>
-        </div>
-        <div className="linkItem">
-            <h2>Cuenta</h2>
-            <ul className="listsetting">
-                <li>👨🏻‍💻 <Link>Login </Link></li>
-                <li>🛒 <Link>Carrito de compras </Link></li>
-                <li>❤️️ <Link>Favoritos </Link></li>
-            </ul>
-        </div>
-        </div>
-    </div>
+const imgURL = 'https://i.postimg.cc/44KR9BZZ/merckart.png';
 
-    <div className="copyright">
-        <p>© 2025 MercArt. All rights reserved.</p>
-        <Link  to = '/about'> 
-            <p>Acerca de nosotros</p>
-        </Link>
 
-    </div> 
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-section-logo logo-section">
+          <img className="logo" src={imgURL} alt="Mercart Logo" />
+          <div className='social-icons'>
+            <FaInstagram/>
+            <FaFacebook/>
+            <FaYoutube />
+          </div>
+        </div>
+        
+        <div className="footer-section">
+          <h4>AYUDA</h4>
+          <ul>
+            <li>Centro de ayuda</li>
+            <li>Preguntas frecuentes</li>
+          </ul>
+        </div>
+        
+        <div className="footer-section">
+          <h4>CONTACTO</h4>
+          <ul>
+            <li>Chatbot</li>
+            <li>Email</li>
+          </ul>
+        </div>
+        
+        <div className="footer-section">
+          <h4>MI CUENTA</h4>
+          <ul>
+            <li>Iniciar sesión</li>
+            <li>Carrito de compras</li>
+            <li>Favoritos</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div className="footer-divider"></div>
+      
+      <div className="footer-bottom">
+        <p>2025 Todos los derechos reservados</p>
+        <div className="footer-links">
+          <span>Política de Privacidad</span>
+          <span>Acerca de nosotros</span>
+        </div>
+      </div>
     </footer>
-);
-}
+  );
+};
+
+export default Footer;
+
