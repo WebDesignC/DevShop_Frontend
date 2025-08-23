@@ -1,12 +1,21 @@
-# React + Vite
+## Librerías Implementadas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto utiliza las siguientes librerías para mejorar la validación, navegación y visualización de íconos:
 
-Currently, two official plugins are available:
+### Zod  
+Librería para validación de esquemas. Útil para formularios y estructuras de datos tipadas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### React Router DOM  
+Manejo de rutas dinámicas en aplicaciones React. Permite navegación sin recargar la página.
 
-## Expanding the ESLint configuration
+### React Icons  
+Colección de íconos populares como Font Awesome, Material Icons, entre otros, en forma de componentes React.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Documentación oficial: [React Icons - Font Awesome](https://react-icons.github.io/react-icons/icons/fa6/)
+- Ejemplo de importación:
+
+```jsx
+import { IconName } from "react-icons/fa";
+
+
+
