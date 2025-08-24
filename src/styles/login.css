@@ -1,14 +1,14 @@
 .login-container {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin: 15px;
-
-background-color: #c846fd;
-width: 100%;
-justify-self: center;
-border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #c846fd;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 25px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .login-content {
@@ -25,14 +25,28 @@ border-radius: 25px;
     height: auto;
     border-radius: 25px;
 }
-.Video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px;
-    box-shadow: 0 0 10px rgba(139, 45, 233, 0.3);
 
+.button-select{
+    display: flex;
+    flex-direction: "row";
 }
+
+.boton{
+    margin: 10px;
+}
+.Video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 25px 25px 0 ;
+  box-shadow: 0 0 10px rgba(139, 45, 233, 0.3);
+  transition: opacity 0.4s ease-in-out;
+}
+
+.Video:hover {
+  opacity: 0.7; /* Puedes ajustar el nivel de desvanecimiento */
+}
+
 .login-video-container  
 {
  margin-right: 10px;
@@ -43,7 +57,6 @@ width: 100%;
 max-width: 400px;
 padding: 20px;
 margin-left: 10px;
-border-radius: 10px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 background-color:#03143B;
 color: aliceblue;
@@ -51,21 +64,59 @@ height: '570px';
 display: flex;
 flex-direction: column;
 align-items: center;
-border-radius: 15px;
+border-radius: 25px 0 0 25px ;
 }
 .login-header {
     text-align: center;
     color: #F4F2EF;
     margin: 20px;
 }
-/* 
 
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* opcional, para contraste */
+}
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
 
+.form-group label {
+  font-weight: bold;
+  color: #f4f2ef;
+  margin-bottom: 6px;
+}
 
+.form-group input,
+.input-with-icon input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  background-color: #fff;
+  color: #000;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-
-
-
-*/
+.toggle-visibility {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+  user-select: none;
+}
