@@ -1,4 +1,3 @@
-
 :root {
     --azul-navy: #0e1d46;
     --gris-claro: #F4F2EF;
@@ -24,7 +23,7 @@
     flex: 1;
     margin-bottom: 1.5rem;
     min-width: 200px;
-    padding: 0 5rem;
+    padding: 0 2rem;
 }
 
 .logo-section {
@@ -32,6 +31,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 0 2rem;
 }
 
 .logo {
@@ -70,6 +70,7 @@
 
 .footer-section ul li {
     margin-bottom: 8px;
+    padding: 0.5rem 0;
     cursor: pointer;
     transition: color 0.3s;
 }
@@ -129,3 +130,4 @@
     .footer-links span {
         margin: 0 10px;
     }
+}

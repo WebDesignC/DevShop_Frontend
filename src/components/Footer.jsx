@@ -1,4 +1,3 @@
-
 import React from 'react';
 import '../styles/Footer.css'; 
 import { FaInstagram, FaFacebook, FaYoutube  } from "react-icons/fa";
@@ -13,9 +12,9 @@ function Footer() {
         <div className="footer-section-logo logo-section">
           <img className="logo" src={imgURL} alt="Mercart Logo" />
           <div className='social-icons'>
-            <FaInstagram/>
-            <FaFacebook/>
-            <FaYoutube />
+            <i><FaInstagram/></i>
+            <i><FaFacebook/></i>
+            <i><FaYoutube /></i>
           </div>
         </div>
         
@@ -59,4 +58,3 @@ function Footer() {
 };
 
 export default Footer;
-
