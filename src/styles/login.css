@@ -73,14 +73,12 @@ border-radius: 25px 0 0 25px ;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0; /* opcional, para contraste */
-}
+  background-color: rgba(114, 19, 122, 0.733)
+} 
 
 .form-group {
   display: flex;
