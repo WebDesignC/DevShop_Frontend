@@ -9,6 +9,8 @@
     background-color: var(--azul-navy);
     padding: 2.5rem 1.5rem 1.5rem;
     color: var(--gris-claro);
+    margin: 5px;
+    border-radius: 5px;
 }
 
 .footer-content {

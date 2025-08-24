@@ -3,8 +3,7 @@ import '../styles/AboutUs.css';
 export default function AboutUs() {
   return (
     <div className="about-container">
-      <h1>🌱 Acerca de Nosotros</h1>
-
+      <h1>🌱 Acerca de Nosotros 🌱</h1>
       <section className="about-section">
         <img
           src="https://i.postimg.cc/PfBszYrD/mercart.png"
@@ -24,9 +23,9 @@ export default function AboutUs() {
             <p>
               Brindar a nuestros clientes una experiencia de compra excepcional, ofreciendo productos tecnológicos y de consumo cuidadosamente seleccionados, con un trato cálido y personalizado, promoviendo prácticas responsables con el medio ambiente.
             </p>
-            <img
+            <img 
               src="https://i.postimg.cc/GmxWCfPP/mision.jpg"
-              alt="Misión"
+              alt="Misión"  
             />
           </div>
         </div>
