@@ -1,0 +1,49 @@
+.carrousel-container {
+    width: 100%;
+    background-color: #d9534f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    position: relative;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.carrousel-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.carrousel-link {
+    color: white;
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.carrousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.carrousel-btn:hover {
+    opacity: 0.8;
+}
+
+.left-btn {
+    left: 8px;
+}
+
+.right-btn {
+    right: 8px;
+}

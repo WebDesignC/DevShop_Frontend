@@ -4,12 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css'
 import App from './App.jsx';
 import Footer from './components/Footer.jsx'
+import Carrousel from './components/Carrousel.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-  <BrowserRouter>
-    <App/> 
-    <Footer/>
-  </BrowserRouter>
+    <BrowserRouter>
+      <Carrousel/>
+      <App/> 
+      <Footer/>
+    </BrowserRouter>
   </StrictMode>,
 )
