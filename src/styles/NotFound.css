@@ -1,0 +1,46 @@
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  text-align: center;
+  background-color: #fafafa;
+  color: #222;
+  font-family: "Montserrat", sans-serif;
+}
+
+.notfound-code {
+  font-size: 96px;
+  font-weight: 700;
+  margin: 0;
+  color: #d9534f; /* Rojo sobrio alineado al banner */
+}
+
+.notfound-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 10px 0;
+  color: #333;
+}
+
+.notfound-text {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+  max-width: 400px;
+}
+
+.notfound-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #d9534f;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.notfound-btn:hover {
+  background-color: #c9302c;
+}
