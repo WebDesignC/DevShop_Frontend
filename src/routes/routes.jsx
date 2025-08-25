@@ -3,6 +3,7 @@ import Home from '../pages/HomePage';
 import AboutUs from '../pages/AboutUsPage';
 import Login from '../pages/LoginPage';
 
+
 const routes = [
   {
     path: '/',
@@ -16,6 +17,7 @@ const routes = [
     path: '/login',
     element: <Login />
   },
+
 
   // {
   //   path: '/help-center',

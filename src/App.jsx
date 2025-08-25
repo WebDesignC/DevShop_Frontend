@@ -1,23 +1,15 @@
+import { Routes, Route } from "react-router-dom";
+import routes from "./routes/routes";
+import Layout from "./Layout/Layout";
 
-import { Routes, Route} from 'react-router-dom'
-import routes from './routes/routes'
-import Navbar from './components/Navegation'
-import Footer from './components/Footer'
-
-function App() {
+export default function App() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <Routes>
-          {routes.map(({path, element}, index)=>(
-            <Route key={index} path={path} element={element}/>
-          ))}
-        </Routes>
-      </main>
-
-    </>
-  )
+    <Routes>
+      <Route element={<Layout />}>
+        {routes.map(({ path, element }, i) => (
+          <Route key={i} path={path} element={element} />
+        ))}
+      </Route>
+    </Routes>
+  );
 }
-
-export default App
