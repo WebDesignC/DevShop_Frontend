@@ -1,16 +1,18 @@
+/* El “cascarón” puede tener fondo global si quieres */
 .page-shell {
   width: 100%;
 }
 
+/* Contenedor global para TODO el contenido de las páginas */
 .page-container {
   width: 100%;
   max-width: 1920px;   /* límite */
-  margin: 0 auto;      /* centra cuando el viewport > 1920px */
+  margin: 0 auto;      /* centra cuando la ventana > 1920px */
   padding: 0 24px;     /* respiro lateral */
   box-sizing: border-box;
 }
 
-/* evita desbordes de medios */
+/* Que medios no se desborden */
 .page-container img,
 .page-container video,
 .page-container canvas,

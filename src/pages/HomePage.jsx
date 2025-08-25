@@ -1,9 +1,9 @@
 // HomePage.jsx
-import React from 'react';
-import Footer from '../components/Footer';
 import '../styles/Home.css';
 
+
 function HomePage() {
+  
   const categorias = [
     { link: "#", categoria: "Ropa", imagen: "https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
     { link: "#", categoria: "Tecnología", imagen: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
@@ -14,6 +14,7 @@ function HomePage() {
   return (
     <>
       <div className="home-container">
+
         {/* Hero Section */}
         <section className="hero-section">
           <div className="hero-content">
@@ -21,17 +22,12 @@ function HomePage() {
             <p>Tu tienda de confianza para productos tecnológicos y más</p>
             <button className="cta-button">Explorar Productos</button>
           </div>
-          <div className="hero-image">
-            <img 
-              src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-              alt="MercArt productos" 
-            />
-          </div>
+          
         </section>
         
         {/* Categorías Section */}
         <section id="categorias" className="categorias-section">
-          <h2>Nuestras Categorías</h2>
+          {/*<h2>Nuestras Categorías</h2> */}
           <div className="categorias-contenedor">
             <div className="categorias-grid">
               {categorias.map((categoria, index) => (
@@ -49,8 +45,10 @@ function HomePage() {
             </div>
           </div>
         </section>
+
         
-        {/* Productos Destacados Section */}
+        
+        *{/* Productos Destacados Section */}
         <section className="featured-products">
           <h2>Productos Destacados</h2>
           <div className="productos-grid">
@@ -82,19 +80,13 @@ function HomePage() {
           </div>
         </section>
         
-        {/* Newsletter Section */}
-        <section className="newsletter-section">
-          <div className="newsletter-content">
-            <h2>Suscríbete a nuestro Newsletter</h2>
-            <p>Recibe las últimas novedades y ofertas exclusivas</p>
-            <form className="newsletter-form">
-              <input type="email" placeholder="Tu correo electrónico" />
-              <button type="submit">Suscribirse</button>
-            </form>
-          </div>
-        </section>
+
+       
+
+        
+
       </div>
-      <Footer />
+      
     </>
   );
 }

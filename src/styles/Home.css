@@ -1,8 +1,8 @@
 /* styles/HomePage.css */
 .home-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  margin-inline: auto;      /* centra horizontalmente */
+  padding-inline: 24px;     /* respiro lateral */
+  box-sizing: border-box;
 }
 
 /* Hero Section */
@@ -10,20 +10,30 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4rem 0;
-  gap: 2rem;
+  padding: 40px;
+  height: 600px;
+  background-color: #d2dfe0;
+  margin-bottom: 2rem;
 }
 
 .hero-content h1 {
-  font-size: 3rem;
+  font-size: 5rem;
   color: #2c3e50;
   margin-bottom: 1rem;
+  align-items: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .hero-content p {
   font-size: 1.2rem;
   color: #7f8c8d;
   margin-bottom: 2rem;
+  align-items: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .cta-button {
@@ -41,15 +51,9 @@
   background-color: #359f71;
 }
 
-.hero-image img {
-  max-width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
 /* Categorías Section */
 .categorias-section {
-  padding: 4rem 0;
+  padding: 0 0px;
   text-align: center;
 }
 
@@ -61,7 +65,9 @@
 
 .categorias-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  grid-template-rows: repeat(2, auto);   /* 2 filas */
+  gap: 20px; /* espacio entre las imágenes */
   gap: 1.5rem;
 }
 
@@ -79,7 +85,7 @@
 
 .categoria-imagen {
   position: relative;
-  height: 200px;
+  height: 600px;
 }
 
 .categoria-imagen img {
@@ -108,7 +114,7 @@
 
 .overlay p {
   color: white;
-  font-size: 1.5rem;
+  font-size: 4rem;
   font-weight: bold;
 }
 
@@ -136,6 +142,7 @@
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s;
+  height: 600px;
 }
 
 .producto-card:hover {
@@ -144,7 +151,7 @@
 
 .producto-card img {
   width: 100%;
-  height: 200px;
+  height: 600px;
   object-fit: cover;
 }
 

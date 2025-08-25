@@ -6,7 +6,7 @@
   justify-content: center;
   margin: 5px;
   width: 100%;
-  max-width: 1200px;
+
   background-color: #03143B;
   color: #F4F2EF;
   padding: 20px 20px;
@@ -19,7 +19,6 @@
   margin-bottom: 20px;
   text-align: center;
 }
-
 
 .about-section {
   display: flex;

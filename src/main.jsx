@@ -1,17 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom';
-import './index.css'
-import App from './App.jsx';
-import Footer from './components/Footer.jsx'
-import Carrousel from './components/Carrousel.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import "./index.css";
+import App from "./App";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <Carrousel/>
-      <App/> 
-      <Footer/>
+      <App />
     </BrowserRouter>
-  </StrictMode>,
-)
+  </StrictMode>
+);

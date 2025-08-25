@@ -1,0 +1,104 @@
+/* styles/Navbar.css */
+.navbar {
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+/* Contenedor flex principal */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  gap: 24px;                  
+  height: 80px;
+}
+
+/* Logo */
+.navbar-logo {
+  flex: 0 0 600px;            
+  width: 180px;
+  font-size: 2.5rem;
+  font-family: Averia Serif Libre;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-weight: 200;
+  color: black;              
+  text-decoration: none;    
+  text-align: center;
+}
+
+/* Menú */
+.navbar-menu {
+  flex: 0 0 720px;            
+  width: 180px;
+  display: flex;
+  gap: 32px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+.navbar-menu a {
+  color: #03143B; 
+  font-family: Averia Serif Libre;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  height: 16px;
+  font-weight: 400;
+  text-align: center;
+  font-size: large;
+}
+
+.navbar-menu a:hover {
+  color: #ef4444; 
+}
+
+/* Iconos */
+.navbar-icons {
+  display: flex;
+  justify-content: flex-end;  
+  align-items: center;
+  gap: 30px;  
+  padding-right: 250px;                  
+}
+
+.navbar-icons > * {
+  flex: 0 0 auto !important;   
+  width: auto !important;      
+}
+
+.navbar-icons a {
+  display: inline-flex;       
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-icons .icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.icon {
+  width: 100px;
+  height: 20px;
+  cursor: pointer;
+  color: #03143B;
+  transition: color 0.2s ease;
+}
+
+.icon:hover {
+  color: #ef4444;
+}
+
+.navbar-link {
+  color: #1f2937;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.navbar-link:hover { color: #ef4444; }
+
+/* estado activo de NavLink */
+.navbar-link.is-active {
+  color: #ef4444;
+}
