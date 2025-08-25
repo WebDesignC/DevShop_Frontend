@@ -1,11 +1,22 @@
-import React from 'react'
-import Home from './pages/HomePage'
-import AboutUs from './pages/AboutUsPage'
-import Login from './pages/LoginPage'
+
+import { Routes, Route} from 'react-router-dom'
+import routes from './routes/routes'
+import Navbar from './components/Navegation'
+import Footer from './components/Footer'
 
 function App() {
   return (
-    <AboutUs/>
+    <>
+      <Navbar />
+      <main>
+        <Routes>
+          {routes.map(({path, element}, index)=>(
+            <Route key={index} path={path} element={element}/>
+          ))}
+        </Routes>
+      </main>
+
+    </>
   )
 }
 
