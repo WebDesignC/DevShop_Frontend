@@ -14,20 +14,23 @@ function HomePage() {
   return (
     <>
       <div className="home-container">
-
-        {/* Hero Section */}
         <section className="hero-section">
+          
           <div className="hero-content">
+            <video  src="https://videos.pexels.com/video-files/3253272/3253272-uhd_2560_1440_25fps.mp4" 
+            autoPlay
+            loop
+            muted></video>
             <h1>Bienvenido a MercArt</h1>
             <p>Tu tienda de confianza para productos tecnológicos y más</p>
             <button className="cta-button">Explorar Productos</button>
+            
           </div>
           
         </section>
-        
-        {/* Categorías Section */}
+
         <section id="categorias" className="categorias-section">
-          {/*<h2>Nuestras Categorías</h2> */}
+          <h2>Nuestras Categorías</h2> 
           <div className="categorias-contenedor">
             <div className="categorias-grid">
               {categorias.map((categoria, index) => (
@@ -47,12 +50,13 @@ function HomePage() {
         </section>
 
         
-        
-        *{/* Productos Destacados Section */}
+
         <section className="featured-products">
           <h2>Productos Destacados</h2>
           <div className="productos-grid">
+
             {/* Aquí iría el listado de productos */}
+
             <div className="producto-card">
               <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Producto 1" />
               <h3>Auriculares Inalámbricos</h3>
