@@ -1,159 +1,265 @@
+.login-master-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
-  margin-bottom: 50px;
-  margin-top: 10px;
+  max-width: 1100px;
   border-radius: 25px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.login-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 0px;
-    margin: 20px;
-    width: 100%;
-}
-.login-logo {
-    width: 50%;
-    margin-bottom: 20px;
-    height: auto;
-    border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
 .login-header {
-    text-align: center;
-    color: black;
-    margin: 20px;
-    justify-items: center;
-    
-}
-
-.buton-select{
-    display: flex;
-    flex-direction: "row";
-    width: 50%;
-    font-size: 15px;
-}
-.boton{
-  font-size: 16px;
-  border-radius:10px;
-  
-}
-
-.boton:hover{
-  font-size: 20px;
-  background-color: navy;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  background-color: #03143B;
   color: white;
 }
+
 .login-header h1 {
-  padding: 10px;
-  font-size: 40px;
-}
-.login-header p{
-  padding: 10px;
-  font-size: 20px;
+  margin: 0;
+  font-size: 2rem;
 }
 
-.boton{
-    margin: 10px;
-}
-.Video {
+.login-content {
+  display: flex;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0 25px 25px 0 ;
-  box-shadow: 0 0 10px rgba(139, 45, 233, 0.3);
-  transition: opacity 0.4s ease-in-out;
+  min-height: 650px;
 }
 
-.Video:hover {
-  opacity: 0.7; /* Puedes ajustar el nivel de desvanecimiento */
-}
-
-.login-video-container  
-{
- margin-right: 10px;
- align-content: center;
-
-} 
-.login-form-container {
-width: 100%;
-max-width: 600px;
-padding: 20px;
-margin-left: 10px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-background-color:#03143B;
-color: black;
-height: '570px';
-display: flex;
-flex-direction: column;
-align-items: center;
-border-radius: 25px 0 0 25px ;
-}
-
-
-body {
-
+.login-form-section {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white(114, 19, 122, 0.733)
-} 
+  padding: 30px;
+  background-color: #03143B;
+  overflow-y: auto;
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 450px;
+  color: #ccc;
+  text-align: center;
+}
+
+.login-form-container p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.button-selector {
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #1a2d5e;
+}
+
+.selector-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: #ccc;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.selector-btn.active {
+  background-color: #2d408d;
+  color: white;
+  font-weight: bold;
+}
+
+.selector-btn:hover {
+  background-color: #3a51a8;
+}
+
+.login-logo {
+  width: 70%;
+  max-width: 250px;
+  margin: 20px auto;
+  display: block;
+}
+
+.login-form {
+  width: 100%;
+}
 
 .form-group {
-  display: flex;
-  flex-direction: column;
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .form-group label {
+  display: block;
   font-weight: bold;
   color: #f4f2ef;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .form-group input,
-.input-with-icon input {
-  padding: 10px;
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  outline: none;
   background-color: #fff;
   color: #000;
   font-size: 16px;
-  width: 100%;
   box-sizing: border-box;
 }
 
-.input-with-icon {
-  position: relative;
+.form-group input[type="date"] {
+  padding: 11px 15px;
+}
+
+.form-group input[type="radio"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.radio-option {
   display: flex;
   align-items: center;
+  padding: 8px 12px;
+  background-color: #1a2d5e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.radio-option:hover {
+  background-color: #2d408d;
+}
+
+/* ESTILOS CORREGIDOS PARA EL TOGGLE DE CONTRASEÑA */
+.input-with-icon {
+  position: relative;
+  width: 100%;
+}
+
+.input-with-icon input {
+  padding-right: 45px; /* Espacio para el ícono */
 }
 
 .toggle-visibility {
   position: absolute;
-  right: -525px;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   user-select: none;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-button{
-  width: 200px;
-  border-radius: 15px;
-  font-size: 15px;
+.error-message {
+  display: block;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
-.login-button:hover{
-  background-color: green;
-  color:white;
-  font-size:20px
+.login-submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
+.login-submit-btn:hover {
+  background-color: #3e8e41;
+  transform: translateY(-2px);
+}
+
+.login-image-section {
+  flex: 1;
+  overflow: hidden;
+}
+
+.login-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive design */
+@media (max-width: 968px) {
+  .login-content {
+    flex-direction: column;
+  }
+  
+  .login-image-section {
+    order: -1;
+    height: 250px;
+  }
+  
+  .login-form-section {
+    padding: 20px;
+  }
+  
+  .radio-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-master-container {
+    padding: 10px;
+  }
+  
+  .login-container {
+    border-radius: 15px;
+  }
+  
+  .login-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .button-selector {
+    flex-direction: column;
+  }
+  
+  .toggle-visibility {
+    right: 12px;
+  }
+}
