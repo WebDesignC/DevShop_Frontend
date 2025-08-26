@@ -247,6 +247,10 @@
   background-color: #359f71;
 }
 
+
+body{
+  overflow-x: hidden;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .hero-section {
