@@ -2,6 +2,7 @@
 import Home from '../pages/HomePage';
 import AboutUs from '../pages/AboutUsPage';
 import Login from '../pages/LoginPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 
 const routes = [
@@ -17,6 +18,10 @@ const routes = [
     path: '/login',
     element: <Login />
   },
+  {
+    path: '*',
+    element: <NotFoundPage/>
+  }
 
 
   // {
