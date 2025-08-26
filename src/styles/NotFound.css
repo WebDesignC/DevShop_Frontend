@@ -3,13 +3,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70vh;
   text-align: center;
   background-color: #fafafa;
   color: #222;
   font-family: "Montserrat", sans-serif;
 }
 
+.not-found-img{
+  border-radius: 25px;
+  padding: 10px;
+}
 .notfound-code {
   font-size: 96px;
   font-weight: 700;
@@ -34,11 +37,13 @@
 .notfound-btn {
   display: inline-block;
   padding: 10px 20px;
+  max-width: 400px;
   background-color: #d9534f;
   color: white;
   text-decoration: none;
   border-radius: 6px;
   transition: background 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .notfound-btn:hover {
