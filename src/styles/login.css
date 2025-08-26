@@ -42,6 +42,8 @@
 }
 .boton{
   font-size: 16px;
+  border-radius:10px;
+  
 }
 
 .boton:hover{
@@ -145,7 +147,7 @@ body {
 
 .login-button{
   width: 200px;
-  
+  border-radius: 15px;
   font-size: 15px;
 }
 
