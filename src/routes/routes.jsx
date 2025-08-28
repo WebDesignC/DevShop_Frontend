@@ -3,6 +3,7 @@ import Home from '../pages/HomePage';
 import AboutUs from '../pages/AboutUsPage';
 import Login from '../pages/LoginPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import ProductsPage from '../pages/ProductsPage';
 
 
 const routes = [
@@ -21,6 +22,10 @@ const routes = [
   {
     path: '*',
     element: <NotFoundPage/>
+  },
+  {
+    path: '/productos',
+    element: <ProductsPage/>
   }
 
 
