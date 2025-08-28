@@ -7,8 +7,10 @@ import { CiDeliveryTruck } from 'react-icons/ci';
 import { BsChatLeftText } from 'react-icons/bs';
 import { LuMinus, LuPlus } from 'react-icons/lu';
 import '../styles/PageLayout.css';
+import '../styles/ProductPage.css';
 import { useProduct } from '../hooks/products/useProduct';
 import { useCart } from '../hooks/products/useCart';
+
 
 export const ProductPage = () => {
   const { id } = useParams();
@@ -69,14 +71,14 @@ export const ProductPage = () => {
 
   const handleAddToCart = () => {
     addItem({
-        id: product.id,
-        name: product.title,
-        price: product.price,
-        image: product.image,
-        category: product.category,
-        description: product.description
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      image: product.image,
+      category: product.category,
+      description: product.description
     });
-    
+
     alert('Producto agregado al carrito');
   };
 
@@ -103,14 +105,14 @@ export const ProductPage = () => {
                 onClick={handleDecrease}
                 disabled={quantity <= 1}
               >
-                <LuMinus size={15} />
+                <LuMinus size={20} />
               </button>
               <span className="quantity-value">{quantity}</span>
               <button
                 className="quantity-btn"
                 onClick={handleIncrease}
               >
-                <LuPlus size={15} />
+                <LuPlus size={20} />
               </button>
             </div>
           </div>
@@ -121,11 +123,11 @@ export const ProductPage = () => {
           </div>
           <div className="product-info">
             <div className="info-item">
-              <CiDeliveryTruck size={35} />
+              <CiDeliveryTruck />
               <p className="info-text">Envío gratis</p>
             </div>
             <div className="info-item">
-              <BsChatLeftText size={30} />
+              <BsChatLeftText />
               <div className="info-text">
                 <span className="info-bold">¿Necesitas ayuda?</span>
                 <span>Contáctanos aquí</span>
