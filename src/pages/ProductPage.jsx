@@ -32,7 +32,7 @@ export const ProductPage = () => {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p>Cargando producto...</p>
+        <p className='loading-text'>Cargando producto...</p>
       </div>
     );
   }
