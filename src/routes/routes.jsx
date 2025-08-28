@@ -1,10 +1,10 @@
-
 import Home from '../pages/HomePage';
-import AboutUs from '../pages/AboutUsPage';
+import AboutUs from '../pages/AboutPage';
 import Login from '../pages/LoginPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import ProductsPage from '../pages/ProductsPage';
-
+import CartPage from '../pages/CartPage'; // Añadido
+import ProductPage from '../pages/ProductPage'
 
 const routes = [
   {
@@ -20,35 +20,21 @@ const routes = [
     element: <Login />
   },
   {
-    path: '*',
-    element: <NotFoundPage/>
+    path: '/cart',
+    element: <CartPage /> // Añadido
   },
   {
     path: '/productos',
     element: <ProductsPage/>
+  },
+  {
+    path: '/productos/:id',
+    element: <ProductPage/> // Añadido para página individual de producto
+  },
+  {
+    path: '*',
+    element: <NotFoundPage/>
   }
-
-
-  // {
-  //   path: '/help-center',
-  //   element: <HelpCenter />
-  // },
-  // {
-  //   path: '/faq',
-  //   element: <FAQ />
-  // },
-  // {
-  //   path: '/cart',
-  //   element: <Cart />
-  // },
-  // {
-  //   path: '/favorites',
-  //   element: <Favorites />
-  // },
-  // {
-  //   path: '/privacy',
-  //   element: <PrivacyPolicy />
-  // }
 ];
 
 export default routes;

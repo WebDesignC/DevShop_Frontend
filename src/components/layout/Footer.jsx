@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Footer.css'; 
+import '../../styles/Footer.css'; 
 import { FaInstagram, FaFacebook, FaTiktok  } from "react-icons/fa";
 import {Link} from 'react-router-dom'
 const imgURL = 'https://i.postimg.cc/44KR9BZZ/merckart.png';

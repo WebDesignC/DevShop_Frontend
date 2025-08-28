@@ -1,101 +1,63 @@
-// HomePage.jsx
+import { ProductGrid } from '../components/home/ProductGrid';
+import { Banner } from '../components/home/Banner';
 import '../styles/Home.css';
+import { useFeaturedProducts } from '../hooks/products/useFeaturedProducts';
 import { Link } from 'react-router-dom';
 
+export const HomePage = () => {
+  const { data: featuredProducts, isLoading, error } = useFeaturedProducts();
 
-function HomePage() {
-  
-  const categorias = [
-    { link: "#", categoria: "Ropa", imagen: "https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { link: "#", categoria: "Tecnología", imagen: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { link: "#", categoria: "Decoración y Hogar", imagen: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { link: "#", categoria: "Deportes", imagen: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
-  ];
+  const formattedProducts = featuredProducts ? featuredProducts.map(product => ({
+    id: product.id,
+    name: product.title,
+    price: product.price,
+    description: product.description,
+    category: product.category,
+    images: [product.image]
+  })) : [];
+
 
   return (
     <>
-      <div className="home-container">
-        <section className="hero-section">
-          
-          <div className="hero-content">
-            <video  src="https://videos.pexels.com/video-files/3253272/3253272-uhd_2560_1440_25fps.mp4" 
-            autoPlay
-            loop
-            muted></video>
-            <h1>Bienvenido a MercArt</h1>
-            <p>Tu tienda de confianza para productos tecnológicos y más</p>
-            <Link to="/productos">
-            <button className="cta-button">Explorar Productos</button>
-            </Link>
-            
-          </div>
-          
+      <Banner />
+      <div className='home-page'>
+        <section className="hero-banner">
+          <h1>Bienvenido a Mercart</h1>
+          <p>Descubre los mejores productos con las mejores ofertas</p>
+          <Link
+            to="/productos"
+            className="cta-button"
+          > Ver Productos </Link>
         </section>
 
-        <section id="categorias" className="categorias-section">
-          <h2>Nuestras Categorías</h2> 
-          <div className="categorias-contenedor">
-            <div className="categorias-grid">
-              {categorias.map((categoria, index) => (
-                <div key={index} className="categoria-item">
-                  <a href={categoria.link}>
-                    <div className="categoria-imagen">
-                      <img src={categoria.imagen} alt={categoria.categoria} />
-                      <div className="overlay">
-                        <p>{categoria.categoria}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              ))}
-            </div>
+        {isLoading && (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Cargando productos...</p>
           </div>
-        </section>
+        )}
 
-        
-
-        <section className="featured-products">
-          <h2>Productos Destacados</h2>
-          <div className="productos-grid">
-
-            {/* Aquí iría el listado de productos */}
-
-            <div className="producto-card">
-              <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Producto 1" />
-              <h3>Auriculares Inalámbricos</h3>
-              <p>$59.99</p>
-              <button className="add-to-cart">Añadir al carrito</button>
-            </div>
-            <div className="producto-card">
-              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Producto 2" />
-              <h3>Smart Watch</h3>
-              <p>$129.99</p>
-              <button className="add-to-cart">Añadir al carrito</button>
-            </div>
-            <div className="producto-card">
-              <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Producto 3" />
-              <h3>Zapatillas Deportivas</h3>
-              <p>$89.99</p>
-              <button className="add-to-cart">Añadir al carrito</button>
-            </div>
-            <div className="producto-card">
-              <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Producto 4" />
-              <h3>Laptop Ultraligera</h3>
-              <p>$899.99</p>
-              <button className="add-to-cart">Añadir al carrito</button>
-            </div>
+        {error && (
+          <div className="error-container">
+            <p>{error.message}</p>
+            <button
+              className="cta-button"
+              onClick={() => window.location.reload()}
+            >
+              Reintentar
+            </button>
           </div>
-        </section>
-        
+        )}
 
-       
-
-        
-
+        {!isLoading && !error && (
+          <ProductGrid
+            title="Productos Destacados"
+            products={formattedProducts}
+          />
+        )}
       </div>
-      
     </>
   );
-}
+};
 
-export default HomePage;
+export default HomePage
