@@ -4,22 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/ProductCard.css';
 import { FaPlus } from 'react-icons/fa';
 
-const addToCartLocal = (product) => {
-  const existingCart = JSON.parse(localStorage.getItem('fakeStoreCart') || '[]');
-  const existingItemIndex = existingCart.findIndex(item => item.id === product.id);
-  
-  if (existingItemIndex >= 0) {
-    existingCart[existingItemIndex].quantity += 1;
-  } else {
-    existingCart.push({
-      ...product,
-      quantity: 1,
-      image: product.image || product.img,
-      name: product.name || product.title
-    });
-  }
-  
-  localStorage.setItem('fakeStoreCart', JSON.stringify(existingCart));
+const addToCartLocal = () => {
   alert('Producto agregado al carrito');
 };
 
@@ -40,15 +25,7 @@ export const ProductCard = ({ id, name, price, img, category, description }) => 
         e.preventDefault();
         e.stopPropagation();
         
-        addToCartLocal({
-            id,
-            name,
-            price,
-            img,
-            category,
-            description,
-            image: img 
-        });
+        addToCartLocal();
     };
 
     return (
