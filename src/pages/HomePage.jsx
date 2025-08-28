@@ -1,5 +1,6 @@
 // HomePage.jsx
 import '../styles/Home.css';
+import { Link } from 'react-router-dom';
 
 
 function HomePage() {
@@ -23,7 +24,9 @@ function HomePage() {
             muted></video>
             <h1>Bienvenido a MercArt</h1>
             <p>Tu tienda de confianza para productos tecnológicos y más</p>
+            <Link to="/productos">
             <button className="cta-button">Explorar Productos</button>
+            </Link>
             
           </div>
           
