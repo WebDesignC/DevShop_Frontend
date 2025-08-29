@@ -1,4 +1,4 @@
-import "../styles/BarraOfertas.css";
+import "../../styles/BarraOfertas.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FaRegCreditCard } from "react-icons/fa";
 import React, { useEffect, useRef, useState, useCallback } from "react";

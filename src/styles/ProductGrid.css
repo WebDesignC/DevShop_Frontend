@@ -1,0 +1,135 @@
+:root {
+  --azul-navy: #0e1d46;
+  --gris-claro: #F4F2EF;
+  --gris-oscuro: #2443a7;
+}
+
+.product-grid {
+  margin: 3rem 0;
+  position: relative;
+  padding: 0 3rem;
+}
+
+.product-grid-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--azul-navy);
+}
+
+.product-grid-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.product-grid-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 1rem 0;
+}
+
+.product-grid-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 2px solid var(--azul-navy);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  color: var(--azul-navy);
+}
+
+.scroll-btn:hover {
+  background: var(--azul-navy);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.scroll-left {
+  left: 1rem;
+}
+
+.scroll-right {
+  right: 1rem;
+}
+
+
+@media (min-width: 1024px) {
+  .product-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    overflow-x: auto;
+  }
+  
+  .product-grid-title {
+    font-size: 2.5rem;
+  }
+}
+
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .product-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    overflow-x: auto;
+  }
+}
+
+
+@media (max-width: 639px) {
+  .product-grid {
+    padding: 0 1rem;
+  }
+  
+  .product-grid-container {
+    display: flex;
+    overflow-x: auto;
+  }
+  
+  .product-grid-container > * {
+    flex: 0 0 85%;
+    min-width: 85%;
+  }
+  
+  .scroll-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .scroll-left {
+    left: 0.5rem;
+  }
+  
+  .scroll-right {
+    right: 0.5rem;
+  }
+}
+
+.product-grid-container .card-product {
+  width: 100%;
+  min-width: 280px;
+}
+
+@media (hover: none) {
+  .scroll-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--azul-navy);
+  }
+}
