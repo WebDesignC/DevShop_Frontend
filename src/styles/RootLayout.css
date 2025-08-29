@@ -1,0 +1,26 @@
+.root-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: calc(5rem + 30px) 0 0; /* AÑADE la altura de la barra de ofertas */
+  flex: 1;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: calc(5rem + 32px) 0.5rem 1rem; /* AJUSTA para móvil */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: calc(4.5rem + 30px) 0.5rem 0.5rem; /* AJUSTA para móvil pequeño */
+  }
+}

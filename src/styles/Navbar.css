@@ -1,104 +1,246 @@
-/* styles/Navbar.css */
-.navbar {
-  width: 100%;
-  background-color: #FFFFFF;
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+:root {
+    --azul-navy: #0e1d46;
+    --gris-claro: #F4F2EF;
+    --gris-oscuro: #2443a7;
+    --transition: all 0.3s ease;
 }
 
-/* Contenedor flex principal */
-.navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; 
-  gap: 24px;                  
-  height: 80px;
+.navbar-header {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Logo */
 .navbar-logo {
-  flex: 0 0 600px;            
-  width: 180px;
-  font-size: 2.5rem;
-  font-family: Averia Serif Libre;
-  font-weight: bold;
-  letter-spacing: 3px;
-  font-weight: 200;
-  color: black;              
-  text-decoration: none;    
-  text-align: center;
+    color: var(--azul-navy);
+    font-size: 2.5rem;
+    font-family: 'Averia Serif Libre', serif;
+    font-weight: 200;
+    letter-spacing: 3px;
+    text-decoration: none;
+    text-align: center;
+    transition: var(--transition);
+    flex-shrink: 0;
 }
 
-/* Menú */
-.navbar-menu {
-  flex: 0 0 720px;            
-  width: 180px;
-  display: flex;
-  gap: 32px;
-  font-size: 0.9rem;
-  letter-spacing: 2px;
+.navbar-logo:hover {
+    color: var(--gris-oscuro);
 }
 
-.navbar-menu a {
-  color: #03143B; 
-  font-family: Averia Serif Libre;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  height: 16px;
-  font-weight: 400;
-  text-align: center;
-  font-size: large;
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-.navbar-menu a:hover {
-  color: #ef4444; 
+.nav-link {
+    font-family: 'Averia Serif Libre', serif;
+    color: var(--azul-navy);
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+    padding: 0.5rem 0;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
 }
 
-/* Iconos */
-.navbar-icons {
-  display: flex;
-  justify-content: flex-end;  
-  align-items: center;
-  gap: 30px;  
-  padding-right: 250px;                  
+.nav-link:hover {
+    color: var(--gris-oscuro);
 }
 
-.navbar-icons > * {
-  flex: 0 0 auto !important;   
-  width: auto !important;      
+.nav-link-active {
+    color: var(--gris-oscuro);
 }
 
-.navbar-icons a {
-  display: inline-flex;       
-  align-items: center;
-  justify-content: center;
+.nav-link-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--gris-oscuro);
 }
 
-.navbar-icons .icon {
-  display: block;
-  width: 24px;
-  height: 24px;
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-.icon {
-  width: 100px;
-  height: 20px;
-  cursor: pointer;
-  color: #03143B;
-  transition: color 0.2s ease;
+.icon-btn {
+    background: none;
+    cursor: pointer;
+    color: var(--azul-navy);
+    transition: var(--transition);
+    position: relative;
+    padding: 0.5rem;
 }
 
-.icon:hover {
-  color: #ef4444;
+.icon-btn:hover {
+    color: var(--gris-oscuro);
 }
 
-.navbar-link {
-  color: #1f2937;
-  text-decoration: none;
-  transition: color .2s ease;
+.cart-btn {
+    display: flex;
+    align-items: center;
 }
 
-.navbar-link:hover { color: #ef4444; }
+.cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--azul-navy);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
 
-/* estado activo de NavLink */
-.navbar-link.is-active {
-  color: #ef4444;
+.cart-btn:hover .cart-badge {
+    background-color: var(--gris-oscuro);
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--azul-navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.user-avatar:hover {
+    background-color: var(--gris-oscuro);
+    transform: scale(1.05);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    cursor: pointer;
+    color: var(--azul-navy);
+}
+
+/* Menú móvil (oculto por defecto) */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: calc(30px + 80px); /* Debajo del navbar */
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mobile-nav.active {
+    display: flex;
+}
+
+.mobile-nav .nav-link {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 1024px) {
+    .navbar-header {
+        padding: 1rem 3%;
+    }
+    
+    .navbar-logo {
+        font-size: 2rem;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none;
+    }
+    
+    .navbar-actions {
+        gap: 1rem;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+        font-size: 1.5rem;
+    }
+    
+    .navbar-logo {
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+    }
+    
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-header {
+        padding: 0.8rem 4%;
+        top: 30px;
+    }
+    
+    .navbar-logo {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+    
+    .navbar-actions {
+        gap: 0.8rem;
+    }
+    
+    .icon-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .cart-badge {
+        width: 16px;
+        height: 16px;
+        font-size: 0.6rem;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .navbar-logo {
+        font-size: 1.3rem;
+    }
+    
+    .navbar-actions {
+        gap: 0.5rem;
+    }
 }

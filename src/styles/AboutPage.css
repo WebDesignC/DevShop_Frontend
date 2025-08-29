@@ -1,0 +1,123 @@
+.about-hero {
+    margin-bottom: 4rem;
+}
+
+.about-section {
+    margin-bottom: 4rem;
+}
+
+.about-section h2 {
+    font-size: 2rem;
+    color: var(--azul-navy);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.content-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.content-block.reversed {
+    direction: rtl;
+}
+
+.content-block.reversed > * {
+    direction: ltr;
+}
+
+.content-logo {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #334155;
+}
+
+
+@media (max-width: 900px) {
+    .content-block {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .content-block.reversed {
+        direction: ltr;
+    }
+    
+    .about-hero .content-block {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section h2 {
+        font-size: 1.7rem;
+    }
+    
+    .text-content p {
+        font-size: 1rem;
+    }
+    
+    .content-image {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-section {
+        margin-bottom: 3rem;
+    }
+    
+    .about-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .content-image {
+        height: 200px;
+    }
+}
+
+.about-hero {
+    margin-bottom: 4rem;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.hero-logo {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #334155;
+    margin-bottom: 1.5rem;
+}
