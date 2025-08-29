@@ -1,62 +1,46 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
-import { ProductCard } from '../products/ProductCard';
-import '../../styles/ProductGrid.css';
+import React, { useRef, useState, useEffect } from 'react'
+import { ProductCard } from '../products/ProductCard'
+import '../../styles/ProductGrid.css'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 
 export const ProductGrid = ({ title, products }) => {
     const scrollContainer = useRef(null);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
     const [showRightArrow, setShowRightArrow] = useState(false);
-    const scrollAmount = 400;
-    const scrollThreshold = 10; 
-
-    const checkScroll = useCallback(() => {
-        if (scrollContainer.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollContainer.current;
-            setShowLeftArrow(scrollLeft > 0);
-            setShowRightArrow(scrollLeft < scrollWidth - clientWidth - scrollThreshold);
-        }
-    }, [scrollThreshold]);
 
     useEffect(() => {
+        const checkScroll = () => {
+            if (scrollContainer.current) {
+                const { scrollLeft, scrollWidth, clientWidth } = scrollContainer.current;
+                setShowLeftArrow(scrollLeft > 0);
+                setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+            }
+        };
+
         const container = scrollContainer.current;
-        if (!container) return;
-        
-        const timeoutId = setTimeout(checkScroll, 100);
-        
-        container.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
+        if (container) {
+            container.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            setTimeout(checkScroll, 100);
+        }
         
         return () => {
-            clearTimeout(timeoutId);
-            container.removeEventListener('scroll', checkScroll);
+            if (container) {
+                container.removeEventListener('scroll', checkScroll);
+            }
             window.removeEventListener('resize', checkScroll);
         };
-    }, [products, checkScroll]); 
+    }, [products]);
 
-    const scroll = useCallback((direction) => {
+    const scroll = (direction) => {
         if (scrollContainer.current) {
+            const scrollAmount = 400;
             scrollContainer.current.scrollBy({
                 left: direction === 'left' ? -scrollAmount : scrollAmount,
                 behavior: 'smooth'
             });
         }
-    }, [scrollAmount]);
-
-
-    const productCards = React.useMemo(() => 
-        products.map(product => (
-            <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                img={product.images[0]}
-                category={product.category}
-                description={product.description}
-            />
-        )), 
-    [products]);
+    };
 
     return (
         <div className='product-grid'>
@@ -76,7 +60,17 @@ export const ProductGrid = ({ title, products }) => {
                 )}
                 
                 <div className='product-grid-container' ref={scrollContainer}>
-                    {productCards}
+                    {products.map(product => (
+                        <ProductCard
+                            key={product.id}
+                            id={product.id}
+                            name={product.name}
+                            price={product.price}
+                            img={product.images[0]}
+                            category={product.category}
+                            description={product.description}
+                        />
+                    ))}
                 </div>
 
                 {showRightArrow && (
@@ -90,5 +84,5 @@ export const ProductGrid = ({ title, products }) => {
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
