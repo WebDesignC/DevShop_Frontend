@@ -3,7 +3,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import { RootLayout } from '../layouts/RootLayout'
 import {
     HomePage, ProductsPage, AboutPage, ProductPage,
-    CartPage, NotFoundPage, LoginPage, RegisterPage
+    CartPage, NotFoundPage, LoginPage, RegisterPage,
+    CategoryPage
 } from '../pages'
 
 export const router = createBrowserRouter([
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 element: <RegisterPage/>
+            },
+            {
+                path:'products/category/:categoryName',
+                element: <CategoryPage/>
             }
         ]
     },
