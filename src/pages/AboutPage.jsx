@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/AboutUs.css'
+import '../styles/AboutPage.css'
 import '../styles/PageLayout.css'
 
 export const AboutPage = () => {
@@ -44,21 +44,18 @@ export const AboutPage = () => {
             <section className='about-section'>
                 <h2>Nuestra visión</h2>
                 <div className='content-block reversed'>
-                    
-                    <div className='text-content'>
-                        <p>
-                            Ser la plataforma líder en comercio electrónico que redefine la relación entre tecnología, sostenibilidad y cercanía humana, creando una comunidad de clientes que se sientan valorados, cómodos y conectados.
-                        </p>
-                    </div>
                     <img
                         src='https://i.postimg.cc/t4jK8b6C/vision.jpg'
                         alt='Visión'
                         className='content-image'
                     />
+                    <div className='text-content'>
+                        <p>
+                            Ser la plataforma líder en comercio electrónico que redefine la relación entre tecnología, sostenibilidad y cercanía humana, creando una comunidad de clientes que se sientan valorados, cómodos y conectados.
+                        </p>
+                    </div>
                 </div>
             </section>
         </div>
     )
 }
-
-export default AboutPage;

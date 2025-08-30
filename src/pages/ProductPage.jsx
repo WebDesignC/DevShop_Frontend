@@ -6,11 +6,9 @@ import { GridImages } from '../components/one-product/GridImages';
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { BsChatLeftText } from 'react-icons/bs';
 import { LuMinus, LuPlus } from 'react-icons/lu';
-import '../styles/PageLayout.css';
 import '../styles/ProductPage.css';
 import { useProduct } from '../hooks/products/useProduct';
 import { useCart } from '../hooks/products/useCart';
-
 
 export const ProductPage = () => {
   const { id } = useParams();
@@ -18,6 +16,7 @@ export const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
 
+  
   useEffect(() => {
     console.log("Product ID from URL:", id);
     if (product) {
@@ -32,7 +31,7 @@ export const ProductPage = () => {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p className='loading-text'>Cargando producto...</p>
+        <p>Cargando producto...</p>
       </div>
     );
   }
@@ -71,32 +70,40 @@ export const ProductPage = () => {
 
   const handleAddToCart = () => {
     addItem({
-      id: product.id,
-      name: product.title,
-      price: product.price,
-      image: product.image,
-      category: product.category,
-      description: product.description
+        id: product.id,
+        name: product.title,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        description: product.description
     });
-
+    
     alert('Producto agregado al carrito');
-  };
+};
 
   return (
     <div className="product-page">
       <div className="product-container">
+      
         <GridImages images={[product.image]} />
+
         <div className="product-details">
           <h1 className="product-title">{product.title}</h1>
+
           <div className="price-container">
             <span className="product-price">${product.price.toFixed(2)}</span>
           </div>
+
           <Separator />
+
+          
           <ul className="features-list">
             <li className="feature-item">Alta calidad garantizada</li>
             <li className="feature-item">Envío rápido disponible</li>
             <li className="feature-item">Devoluciones gratuitas</li>
           </ul>
+
+          
           <div className="quantity-selector">
             <p className="quantity-label">Cantidad:</p>
             <div className="quantity-controls">
@@ -105,29 +112,33 @@ export const ProductPage = () => {
                 onClick={handleDecrease}
                 disabled={quantity <= 1}
               >
-                <LuMinus size={20} />
+                <LuMinus size={15} />
               </button>
               <span className="quantity-value">{quantity}</span>
               <button
                 className="quantity-btn"
                 onClick={handleIncrease}
               >
-                <LuPlus size={20} />
+                <LuPlus size={15} />
               </button>
             </div>
           </div>
+
+          
           <div className="action-buttons">
             <button className="buy-now-btn" onClick={handleAddToCart}>
               Agregar al carrito
             </button>
           </div>
+
+          
           <div className="product-info">
             <div className="info-item">
-              <CiDeliveryTruck />
+              <CiDeliveryTruck size={35} />
               <p className="info-text">Envío gratis</p>
             </div>
             <div className="info-item">
-              <BsChatLeftText />
+              <BsChatLeftText size={30} />
               <div className="info-text">
                 <span className="info-bold">¿Necesitas ayuda?</span>
                 <span>Contáctanos aquí</span>
@@ -136,9 +147,9 @@ export const ProductPage = () => {
           </div>
         </div>
       </div>
+
+      
       <ProductDescription content={product.description} />
     </div>
   );
 };
-
-export default ProductPage

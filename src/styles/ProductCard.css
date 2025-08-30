@@ -10,8 +10,7 @@
   overflow: hidden;
   transition: all 0.3s ease;
   background: white;
-  height: auto;
-  min-height: 380px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -66,7 +65,7 @@
 .product-category {
   position: absolute;
   top: 10px;
-  left: 10px; /* Cambiado de right a left */
+  right: 10px;
   background-color: rgba(14, 29, 70, 0.9);
   color: white;
   padding: 4px 8px;
