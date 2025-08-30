@@ -1,0 +1,96 @@
+.category-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.page-header {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #0e1d46;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.no-products-message {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-style: italic;
+}
+
+.no-products-message p {
+  margin-bottom: 1rem;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  min-height: 300px;
+}
+
+.loading-spinner {
+  border: 3px solid #F4F2EF;
+  border-top: 3px solid #0e1d46;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-container p {
+  margin-bottom: 1rem;
+  color: #d32f2f;
+}
+
+.cta-button {
+  background-color: #0e1d46;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.cta-button:hover {
+  background-color: #2443a7;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .page-header p {
+    font-size: 1rem;
+  }
+  
+  .category-page {
+    padding: 0 0.5rem;
+  }
+}
