@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { Navbar } from '../components/shared/Navbar'
 import { Footer } from '../components/shared/Footer'
 import BarraOfertas from '../components/shared/BarraOfertas'
+import ScrollToTop from '../components/shared/ScrollToTop'
 import '../styles/RootLayout.css'
 
 export const RootLayout = () => {
@@ -10,6 +11,7 @@ export const RootLayout = () => {
     <div className='root-layout'>
       <BarraOfertas />
       <Navbar />
+      <ScrollToTop />
       <main className='container'>
         <Outlet />
       </main>
