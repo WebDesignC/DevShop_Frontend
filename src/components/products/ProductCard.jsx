@@ -6,6 +6,7 @@ import { useCart } from '../../hooks/products/useCart';
 
 export const ProductCard = ({ id, name, price, img, category, description }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [imageError, setImageError] = useState(false);
     const { addItem } = useCart();
     
     if (!id) {
@@ -35,6 +36,10 @@ export const ProductCard = ({ id, name, price, img, category, description }) => 
         alert('Producto agregado al carrito');
     };
 
+    const handleImageError = () => {
+        setImageError(true);
+    };
+
     return (
         <div 
             className="card-product"
@@ -43,7 +48,11 @@ export const ProductCard = ({ id, name, price, img, category, description }) => 
         >
             <Link to={`/productos/${id}`} className="card-link">
                 <div className="card-product-image">
-                    <img src={img} alt={name} />
+                    <img 
+                        src={imageError ? 'https://static.vecteezy.com/system/resources/previews/013/149/674/non_2x/unavailable-image-icon-in-trendy-flat-style-isolated-on-white-background-photo-gallery-symbol-for-web-and-mobile-apps-free-vector.jpg' : img} 
+                        alt={name} 
+                        onError={handleImageError}
+                    />
                     {category && <span className="product-category">{category}</span>}
                 </div>
             </Link>
