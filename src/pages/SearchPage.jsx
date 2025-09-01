@@ -1,4 +1,3 @@
-// SearchPage.jsx
 import { useState } from 'react';
 import { Search } from '../components/shared/Search';
 import '../styles/SearchPage.css';
