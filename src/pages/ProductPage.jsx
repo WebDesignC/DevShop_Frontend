@@ -16,16 +16,11 @@ export const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
 
-  
   useEffect(() => {
-    console.log("Product ID from URL:", id);
     if (product) {
       console.log("Product data:", product);
     }
-    if (isError) {
-      console.log("Error:", error);
-    }
-  }, [id, product, isError, error]);
+  }, [product]);
 
   if (isLoading) {
     return (
@@ -37,9 +32,11 @@ export const ProductPage = () => {
   }
 
   if (isError) {
+    console.error("Error details:", error);
     return (
       <div className="error-container">
         <p>Error al cargar el producto: {error.message}</p>
+        <p>ID del producto: {id}</p>
         <button
           className="cta-button"
           onClick={() => window.location.reload()}
@@ -50,10 +47,11 @@ export const ProductPage = () => {
     );
   }
 
-  if (!product) {
+  if (!product || !product._id) {
     return (
       <div className="error-container">
-        <p>Producto no encontrado</p>
+        <p>Producto no encontrado o datos incompletos</p>
+        <p>ID solicitado: {id}</p>
       </div>
     );
   }
@@ -70,40 +68,37 @@ export const ProductPage = () => {
 
   const handleAddToCart = () => {
     addItem({
-        id: product.id,
-        name: product.title,
-        price: product.price,
-        image: product.image,
-        category: product.category,
-        description: product.description
+      id: product._id, 
+      name: product.nombre, 
+      price: product.precio, 
+      image: product.imagen, 
+      category: product.categoria?.nombre, 
+      description: product.descripcion 
     });
     
     alert('Producto agregado al carrito');
-};
+  };
 
   return (
     <div className="product-page">
       <div className="product-container">
-      
-        <GridImages images={[product.image]} />
-
+        <GridImages images={[product.imagen]} /> 
+        
         <div className="product-details">
-          <h1 className="product-title">{product.title}</h1>
+          <h1 className="product-title">{product.nombre}</h1> 
 
           <div className="price-container">
-            <span className="product-price">${product.price.toFixed(2)}</span>
+            <span className="product-price">${product.precio.toFixed(2)}</span> 
           </div>
 
           <Separator />
 
-          
           <ul className="features-list">
             <li className="feature-item">Alta calidad garantizada</li>
             <li className="feature-item">Envío rápido disponible</li>
             <li className="feature-item">Devoluciones gratuitas</li>
           </ul>
 
-          
           <div className="quantity-selector">
             <p className="quantity-label">Cantidad:</p>
             <div className="quantity-controls">
@@ -124,14 +119,12 @@ export const ProductPage = () => {
             </div>
           </div>
 
-          
           <div className="action-buttons">
             <button className="buy-now-btn" onClick={handleAddToCart}>
               Agregar al carrito
             </button>
           </div>
 
-          
           <div className="product-info">
             <div className="info-item">
               <CiDeliveryTruck size={35} />
@@ -148,8 +141,7 @@ export const ProductPage = () => {
         </div>
       </div>
 
-      
-      <ProductDescription content={product.description} />
+      <ProductDescription content={product.descripcion} />
     </div>
   );
 };
