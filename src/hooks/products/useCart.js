@@ -4,7 +4,7 @@ export const useCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Cargar carrito desde localStorage al inicializar
+
   useEffect(() => {
     const savedCart = localStorage.getItem('fakeStoreCart');
     if (savedCart) {
@@ -18,7 +18,7 @@ export const useCart = () => {
     setIsLoading(false);
   }, []);
 
-  // Guardar en localStorage cuando cambie el carrito
+
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem('fakeStoreCart', JSON.stringify(cartItems));

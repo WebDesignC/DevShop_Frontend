@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ProductCard } from '../components/products/ProductCard';
 import { ContainerFilter } from '../components/products/ContainerFilter';
 import { Pagination } from '../components/shared/Pagination';
@@ -7,24 +7,27 @@ import '../styles/PageLayout.css';
 import { useProducts } from '../hooks/products/useProducts';
 
 export const ProductsPage = () => {
-    const { data: products, isLoading, error } = useProducts();
-    const [filteredProducts, setFilteredProducts] = useState([]);
+    const { data: productsData, isLoading, error } = useProducts();
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 12; //(3 columnas × 4 filas)
+    const productsPerPage = 12;
+
+    const products = useMemo(() => {
+        return Array.isArray(productsData) ? productsData : [];
+    }, [productsData]);
+
+    const filteredProducts = useMemo(() => {
+        if (selectedCategories.length === 0) {
+            return products;
+        }
+        return products.filter(product => 
+            selectedCategories.includes(product.categoria?._id)
+        );
+    }, [products, selectedCategories]);
 
     useEffect(() => {
-        if (products) {
-            if (selectedCategories.length === 0) {
-                setFilteredProducts(products);
-            } else {
-                setFilteredProducts(products.filter(product => 
-                    selectedCategories.includes(product.category)
-                ));
-            }
-            setCurrentPage(1);
-        }
-    }, [selectedCategories, products]);
+        setCurrentPage(1);
+    }, [selectedCategories]);
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -81,13 +84,13 @@ export const ProductsPage = () => {
                                     <div className='products-list'>
                                         {currentProducts.map(product => (
                                             <ProductCard
-                                                key={product.id}
-                                                id={product.id}
-                                                name={product.title}
-                                                price={product.price}
-                                                img={product.image}
-                                                category={product.category}
-                                                description={product.description}
+                                                key={product._id}
+                                                id={product._id}
+                                                name={product.nombre}
+                                                price={product.precio}
+                                                img={product.imagen}
+                                                category={product.categoria?.nombre}
+                                                description={product.descripcion}
                                             />
                                         ))}
                                     </div>

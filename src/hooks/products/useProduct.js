@@ -1,11 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 
 const fetchProduct = async (id) => {
-  const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-  if (!response.ok) {
-    throw new Error('Error fetching product');
+  try {
+    const response = await fetch(`https://mercartback.vercel.app/api/productos/${id}`);
+    
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    return data.producto || data;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    throw new Error('Error al cargar el producto');
   }
-  return response.json();
 };
 
 export const useProduct = (id) => {
@@ -14,5 +23,6 @@ export const useProduct = (id) => {
     queryFn: () => fetchProduct(id),
     enabled: !!id, 
     staleTime: 5 * 60 * 1000,
+    retry: 2, // Reintentar 2 veces en caso de error
   });
 };
