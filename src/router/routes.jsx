@@ -5,7 +5,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import ProductsPage from '../pages/ProductsPage';
 import CartPage from '../pages/CartPage'; // Añadido
 import ProductPage from '../pages/ProductPage'
-
+import PoliticaDePrivacidad from '../pages/PoliticaPrivacidad';
 const routes = [
   {
     path: '/',
@@ -34,6 +34,11 @@ const routes = [
   {
     path: '*',
     element: <NotFoundPage/>
+  }
+  ,
+  {
+    path: '/privacy',
+    element: <PoliticaDePrivacidad/>
   }
 ];
 
