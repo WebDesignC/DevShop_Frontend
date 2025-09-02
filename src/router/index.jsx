@@ -4,7 +4,7 @@ import { RootLayout } from '../layouts/RootLayout'
 import {
     HomePage, ProductsPage, AboutPage, ProductPage,
     CartPage, NotFoundPage, LoginPage, RegisterPage,
-    CategoryPage
+    CategoryPage, SearchPage
 } from '../pages'
 
 export const router = createBrowserRouter([
@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'search',
-                element: <NotFoundPage />
+                element: <SearchPage />
             },
             {
                 path: '*',
