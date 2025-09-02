@@ -3,7 +3,7 @@ import '../styles/PoliticaDePrivacidad.css';
 import { 
   FaBuilding, 
   FaDatabase, 
-  FaTarget, 
+  FaCrosshairs, 
   FaExchangeAlt, 
   FaUserCheck, 
   FaShieldAlt, 
@@ -26,7 +26,7 @@ export const PoliticaDePrivacidad = () => {
             Responsable del Tratamiento
           </h2>
           <p>
-            Esta política aplica a [MercArt], con domicilio en [Torre Diana, CDMX], quien será responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
+            Esta política aplica a MercArt, con domicilio en Torre Diana, CDMX, quien será responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
           </p>
         </section>
 
@@ -45,7 +45,7 @@ export const PoliticaDePrivacidad = () => {
 
         <section className="privacy-section">
           <h2>
-            <FaTarget className="privacy-icon" />
+            <FaCrosshairs className="privacy-icon" />
             Finalidades del Tratamiento
           </h2>
           <p>Utilizamos tus datos para:</p>
@@ -74,7 +74,7 @@ export const PoliticaDePrivacidad = () => {
             Derechos ARCO
           </h2>
           <p>
-            Puedes acceder, rectificar, cancelar u oponerte al tratamiento de tus datos personales enviando una solicitud a [correo@tuempresa.com]. También puedes revocar tu consentimiento en cualquier momento.
+            Puedes acceder, rectificar, cancelar u oponerte al tratamiento de tus datos personales enviando una solicitud a mercart@mcarkart.com. También puedes revocar tu consentimiento en cualquier momento.
           </p>
         </section>
 
@@ -105,7 +105,7 @@ export const PoliticaDePrivacidad = () => {
           Contacto
         </h2>
         <p>
-          Para cualquier duda o aclaración sobre esta política, contáctanos en [mercart@mcarkart.com].
+          Para cualquier duda o aclaración sobre esta política, contáctanos en mercart@mcarkart.com.
         </p>
       </section>
     </main>

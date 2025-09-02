@@ -1,0 +1,192 @@
+/* DataBreachAlert.css */
+.breach-alert-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #8b0000 0%, #660000 100%);
+    padding: 2rem;
+    color: white;
+}
+
+.breach-alert-content {
+    max-width: 800px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid #ff3333;
+}
+
+.alert-icon {
+    margin-bottom: 1.5rem;
+    font-size: 4rem;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.breach-alert-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #ff6666;
+    text-shadow: 0 0 10px rgba(255, 102, 102, 0.5);
+}
+
+.breach-alert-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #ff9999;
+}
+
+.breach-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.breach-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.breach-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.critical {
+    background: linear-gradient(to right, #8b0000, #660000);
+    border-left: 4px solid #ff3333;
+}
+
+.warning {
+    background: linear-gradient(to right, #cc5500, #993d00);
+    border-left: 4px solid #ff9933;
+}
+
+.danger {
+    background: linear-gradient(to right, #990000, #660000);
+    border-left: 4px solid #ff6666;
+}
+
+.urgent {
+    background: linear-gradient(to right, #800020, #600019);
+    border-left: 4px solid #ff3366;
+}
+
+.action-steps {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.action-steps h3 {
+    color: #ff6666;
+    margin-top: 0;
+}
+
+.action-steps ol {
+    padding-left: 1.5rem;
+}
+
+.action-steps li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.breach-alert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.alert-button {
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.alert-button.primary {
+    background-color: #ff3333;
+    color: white;
+    border: 2px solid #ff6666;
+}
+
+.alert-button.primary:hover {
+    background-color: #ff6666;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 102, 102, 0.4);
+}
+
+.alert-button.secondary {
+    background-color: transparent;
+    color: #ff9999;
+    border: 2px solid #ff9999;
+}
+
+.alert-button.secondary:hover {
+    background-color: rgba(255, 153, 153, 0.2);
+    transform: translateY(-2px);
+}
+
+.disclaimer {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 2rem;
+}
+
+.disclaimer a {
+    color: #ff9999;
+    text-decoration: none;
+}
+
+.disclaimer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .breach-alert-content {
+        padding: 2rem 1.5rem;
+    }
+    
+    .breach-alert-title {
+        font-size: 2rem;
+    }
+    
+    .breach-alert-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .breach-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .breach-alert-actions {
+        flex-direction: column;
+    }
+    
+    .alert-button {
+        width: 100%;
+        text-align: center;
+    }
+}

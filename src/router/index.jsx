@@ -4,7 +4,7 @@ import { RootLayout } from '../layouts/RootLayout'
 import {
     HomePage, ProductsPage, AboutPage, ProductPage,
     CartPage, NotFoundPage, LoginPage, RegisterPage,
-    CategoryPage, SearchPage, PoliticaDePrivacidad
+    CategoryPage, SearchPage, PoliticaDePrivacidad, DataBreachAlertPage
 } from '../pages'
 
 export const router = createBrowserRouter([
@@ -56,6 +56,11 @@ export const router = createBrowserRouter([
                 path: 'privacy',
                 element: <PoliticaDePrivacidad/>
             },
+            {
+                path: 'payment',
+                element: <DataBreachAlertPage/>
+            }
+            
         ]
     },
 ]);
