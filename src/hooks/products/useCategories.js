@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
 const fetchCategories = async () => {
-  const response = await fetch('https://fakestoreapi.com/products/categories');
+  const response = await fetch('https://mercartback.vercel.app/api/categorias');
   if (!response.ok) {
     throw new Error('Error fetching categories');
   }
-  return response.json();
+  const data = await response.json();
+
+  return data;
 };
 
 export const useCategories = () => {

@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 const fetchProducts = async () => {
-  const response = await fetch('https://fakestoreapi.com/products');
+  const response = await fetch('https://mercartback.vercel.app/api/productos');
   if (!response.ok) {
     throw new Error('Error fetching products');
   }
-  return response.json();
+  const data = await response.json();
+  return Array.isArray(data) ? data : (data.productos || []);
 };
 
 export const useProducts = () => {
@@ -13,6 +14,5 @@ export const useProducts = () => {
     queryKey: ['products'],
     queryFn: fetchProducts,
     staleTime: 5 * 60 * 1000,
-    cacheTime: 30 * 60 * 1000,
   });
 };
