@@ -1,118 +1,53 @@
 .about-hero {
     margin-bottom: 4rem;
-}
-
-.about-section {
-    margin-bottom: 4rem;
-}
-
-.about-section h2 {
-    font-size: 2rem;
-    color: var(--azul-navy);
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.content-block {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.content-block.reversed {
-    direction: rtl;
-}
-
-.content-block.reversed > * {
-    direction: ltr;
-}
-
-.content-logo {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.content-image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.text-content p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #334155;
-}
-
-
-@media (max-width: 900px) {
-    .content-block {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .content-block.reversed {
-        direction: ltr;
-    }
-    
-    .about-hero .content-block {
-        text-align: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-section h2 {
-        font-size: 1.7rem;
-    }
-    
-    .text-content p {
-        font-size: 1rem;
-    }
-    
-    .content-image {
-        height: 250px;
-    }
-}
-
-@media (max-width: 480px) {
-    .about-section {
-        margin-bottom: 3rem;
-    }
-    
-    .about-section h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .content-image {
-        height: 200px;
-    }
-}
-
-.about-hero {
-    margin-bottom: 4rem;
+    padding: 2rem 0;
+    position: relative;
 }
 
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
+    align-items: center;
     gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.logo-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
 .hero-logo {
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     height: auto;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+.hero-text {
+    flex: 1;
+    position: relative;
+    padding: 2rem;
+    border-left: 3px solid var(--azul-navy);
+    background-color: rgba(248, 250, 252, 0.7);
+    border-radius: 0 12px 12px 0;
+}
+
+.hero-text::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: var(--azul-navy);
+    border-radius: 50%;
 }
 
 .hero-text p {
@@ -120,4 +55,195 @@
     line-height: 1.7;
     color: #334155;
     margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.value-item {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    background-color: #f8fafc;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    color: var(--azul-navy);
+    margin-bottom: 1rem;
+}
+
+.value-item h3 {
+    font-size: 1.3rem;
+    color: var(--azul-navy);
+    margin-bottom: 1rem;
+}
+
+.value-item p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.mission-vision-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.mission-vision-item {
+    padding: 2rem;
+    border-radius: 12px;
+    background: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.icon-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.mv-icon {
+    font-size: 2rem;
+    color: var(--azul-navy);
+}
+
+.mission-vision-item h2 {
+    font-size: 1.8rem;
+    color: var(--azul-navy);
+    margin: 0;
+}
+
+.mission-vision-item p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #334155;
+    margin: 0;
+}
+
+.commitment-section {
+    margin-bottom: 4rem;
+}
+
+.commitment-section h2 {
+    font-size: 2rem;
+    color: var(--azul-navy);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+
+.commitment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.commitment-item {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.commitment-item:hover {
+    transform: translateY(-5px);
+}
+
+.commitment-icon {
+    font-size: 2.5rem;
+    color: var(--azul-navy);
+    margin-bottom: 1rem;
+}
+
+.commitment-item h3 {
+    font-size: 1.3rem;
+    color: var(--azul-navy);
+    margin-bottom: 1rem;
+}
+
+.commitment-item p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .hero-logo {
+        max-width: 300px;
+    }
+    
+    .hero-text {
+        border-left: none;
+        border-top: 3px solid var(--azul-navy);
+        border-radius: 12px;
+        padding: 2rem 1.5rem;
+    }
+    
+    .hero-text::before {
+        left: 50%;
+        top: -10px;
+        transform: translateX(-50%);
+    }
+    
+    .logo-connection {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .mission-vision-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .icon-title-wrapper {
+        justify-content: center;
+    }
+    
+    .mission-vision-item {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .values-grid,
+    .commitment-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .value-item,
+    .commitment-item {
+        padding: 1.5rem 1rem;
+    }
+    
+    .hero-logo {
+        max-width: 250px;
+    }
 }
