@@ -9,12 +9,14 @@ import { LuMinus, LuPlus } from 'react-icons/lu';
 import '../styles/ProductPage.css';
 import { useProduct } from '../hooks/products/useProduct';
 import { useCart } from '../hooks/products/useCart';
+import { PopupMessage } from '../components/shared/PopupMessage';
 
 export const ProductPage = () => {
   const { id } = useParams();
   const { data: product, isLoading, isError, error } = useProduct(id);
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     if (product) {
@@ -68,27 +70,27 @@ export const ProductPage = () => {
 
   const handleAddToCart = () => {
     addItem({
-      id: product._id, 
-      name: product.nombre, 
-      price: product.precio, 
-      image: product.imagen, 
-      category: product.categoria?.nombre, 
-      description: product.descripcion 
+      id: product._id,
+      name: product.nombre,
+      price: product.precio,
+      image: product.imagen,
+      category: product.categoria?.nombre,
+      description: product.descripcion
     });
-    
-    alert('Producto agregado al carrito');
+
+    setShowMessage(true);
   };
 
   return (
     <div className="product-page">
       <div className="product-container">
-        <GridImages images={[product.imagen]} /> 
-        
+        <GridImages images={[product.imagen]} />
+
         <div className="product-details">
-          <h1 className="product-title">{product.nombre}</h1> 
+          <h1 className="product-title">{product.nombre}</h1>
 
           <div className="price-container">
-            <span className="product-price">${product.precio.toFixed(2)}</span> 
+            <span className="product-price">${product.precio.toFixed(2)}</span>
           </div>
 
           <Separator />
@@ -142,6 +144,16 @@ export const ProductPage = () => {
       </div>
 
       <ProductDescription content={product.descripcion} />
+
+
+      {showMessage && (
+        <PopupMessage
+          mensaje={"Producto agregado al carrito"}
+          tipo={"exito"}
+          duracion={3000}
+          onCerrar={() => setShowMessage(false)}
+        />
+      )}
     </div>
   );
 };
