@@ -7,10 +7,10 @@ export const ContainerFilter = ({ onCategoryChange }) => {
     const { data: categories, isLoading, error } = useCategories()
     const [selectedCategories, setSelectedCategories] = useState([])
 
-    const handleCategoryChange = (category) => {
-        const newSelectedCategories = selectedCategories.includes(category) 
-            ? selectedCategories.filter(c => c !== category)
-            : [...selectedCategories, category]
+    const handleCategoryChange = (categoryId) => {
+        const newSelectedCategories = selectedCategories.includes(categoryId) 
+            ? selectedCategories.filter(id => id !== categoryId)
+            : [...selectedCategories, categoryId]
         
         setSelectedCategories(newSelectedCategories)
         onCategoryChange(newSelectedCategories)
@@ -37,15 +37,15 @@ export const ContainerFilter = ({ onCategoryChange }) => {
                 ) : (
                     <div className='categories-list'>
                         {categories.map(category => (
-                            <label key={category} className='category-item'>
+                            <label key={category._id} className='category-item'>
                                 <input
                                     type='checkbox'
-                                    checked={selectedCategories.includes(category)}
-                                    onChange={() => handleCategoryChange(category)}
+                                    checked={selectedCategories.includes(category._id)}
+                                    onChange={() => handleCategoryChange(category._id)}
                                     className='category-checkbox'
                                 />
                                 <span className='category-label'>
-                                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                                    {category.nombre} {/* Usamos el nombre que ya está bien formateado */}
                                 </span>
                             </label>
                         ))}
