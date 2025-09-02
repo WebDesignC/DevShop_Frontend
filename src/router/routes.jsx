@@ -40,6 +40,11 @@ const routes = [
     path: '/privacy',
     element: <PoliticaDePrivacidad/>
   }
+  ,
+  {
+    path: '/payment',
+    element: <PoliticaDePrivacidad/>
+  }
 ];
 
 export default routes;

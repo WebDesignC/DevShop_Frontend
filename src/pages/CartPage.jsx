@@ -122,9 +122,9 @@ export const CartPage = () => {
                   <span>${calculateTotal().toFixed(2)}</span>
                 </div>
                 
-                <button className="checkout-btn">
+                <Link to ='/payment'><button className="checkout-btn">
                   Proceder al pago
-                </button>
+                </button></Link>
               </div>
             </div>
           </div>
