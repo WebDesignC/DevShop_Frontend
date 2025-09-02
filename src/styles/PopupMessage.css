@@ -1,0 +1,82 @@
+.mensaje-emergente {
+  position: fixed;
+  bottom: 100px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  min-width: 300px;
+  max-width: 400px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideInFromBottom 0.3s ease-out;
+  color: white;
+  text-align: center;
+}
+
+.mensaje-emergente.exito {
+  background-color: #1dac22;
+}
+
+.mensaje-emergente.error {
+  background-color: #f44336;
+}
+
+
+.mensaje-contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mensaje-texto {
+  flex: 1;
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+.cerrar-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.cerrar-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 100%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes slideOutToBottom {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 100%);
+  }
+}
+
+.mensaje-emergente.cerrando {
+  animation: slideOutToBottom 0.3s ease-in forwards;
+}
