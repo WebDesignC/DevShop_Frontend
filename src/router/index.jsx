@@ -64,8 +64,11 @@ export const router = createBrowserRouter([
             {
                 path: 'payment',
                 element: <DataBreachAlertPage/>
-            }
-            
+            },
+            {
+                path: '/faq',
+                element: <FAQPage />
+            },
         ]
     },
 ]);
