@@ -1,10 +1,11 @@
-import React from 'react'
-import { createBrowserRouter } from 'react-router-dom';
-import { RootLayout } from '../layouts/RootLayout'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RootLayout } from "../layouts/RootLayout";
 import {
     HomePage, ProductsPage, AboutPage, ProductPage,
     CartPage, NotFoundPage, LoginPage, RegisterPage,
-    CategoryPage, SearchPage, PoliticaDePrivacidad, DataBreachAlertPage
+    CategoryPage, SearchPage, PoliticaDePrivacidad, DataBreachAlertPage, FAQPage
 } from '../pages'
 
 export const router = createBrowserRouter([
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
                 element: <SearchPage />
             },
             {
+                path: 'faq',
+                element: <FAQPage />
+            },
+            {
                 path: '*',
                 element: <NotFoundPage />
             },
@@ -59,8 +64,11 @@ export const router = createBrowserRouter([
             {
                 path: 'payment',
                 element: <DataBreachAlertPage/>
-            }
-            
+            },
+            {
+                path: '/faq',
+                element: <FAQPage />
+            },
         ]
     },
 ]);

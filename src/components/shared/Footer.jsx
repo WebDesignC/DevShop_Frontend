@@ -20,8 +20,8 @@ export const Footer = () => {
         <div className="footer-section">
           <h4>AYUDA</h4>
           <ul>
-            <Link to ='*'><li>Centro de ayuda</li></Link>
-            <Link to ='*'><li>Preguntas frecuentes</li></Link>
+            <Link to='*'><li>Centro de ayuda</li></Link>
+            <Link to ='/faq'><li>Preguntas frecuentes</li></Link>
           </ul>
         </div>
         

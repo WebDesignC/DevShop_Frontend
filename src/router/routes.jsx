@@ -6,12 +6,18 @@ import ProductsPage from '../pages/ProductsPage';
 import CartPage from '../pages/CartPage'; // Añadido
 import ProductPage from '../pages/ProductPage'
 import PoliticaDePrivacidad from '../pages/PoliticaPrivacidad';
+import FAQPage from '../pages/FAQPage';
 const routes = [
   {
     path: '/',
     element: <Home />
   },
-  {
+
+{
+  path: '/faq',
+  element: <FAQPage />
+},
+{
     path: '/about',
     element: <AboutUs />
   },

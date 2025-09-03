@@ -24,8 +24,12 @@ function Footer() {
         <div className="footer-section">
           <h4>AYUDA</h4>
           <ul>
-            <li> <Link to='/help-center'>Centro de ayuda </Link> </li>
-            <li><Link to='/faq'>Preguntas frecuentes </Link> </li>
+            <li>
+               <Link to='/help-center'>Centro de ayuda </Link> 
+            </li>
+            <li>
+                <Link to="/faq">Preguntas frecuentes</Link>
+            </li>
           </ul>
         </div>
         
