@@ -6,16 +6,7 @@ const fetchProducts = async () => {
     throw new Error('Error fetching products');
   }
   const data = await response.json();
-  const products = Array.isArray(data) ? data : (data.productos || []);
-  
-  return products.map(product => ({
-    id: product._id,
-    title: product.nombre,
-    price: product.precio,
-    image: product.imagen,
-    category: product.categoria?.nombre,
-    description: product.descripcion
-  }));
+  return Array.isArray(data) ? data : (data.productos || []);
 };
 
 export const useProducts = () => {
@@ -23,7 +14,5 @@ export const useProducts = () => {
     queryKey: ['products'],
     queryFn: fetchProducts,
     staleTime: 5 * 60 * 1000,
-    retry: 2,
-    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000),
   });
 };
