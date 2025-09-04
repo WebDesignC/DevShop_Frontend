@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import '../../styles/ProductCard.css';
 import { FaPlus } from 'react-icons/fa';
-import { useCart } from '../../hooks/products/useCart';
+import { useCart } from '../../contexts/useCart';
 import { PopupMessage } from '../shared/PopupMessage';
 
 export const ProductCard = ({ id, name, price, img, category, description }) => {
@@ -79,9 +79,7 @@ export const ProductCard = ({ id, name, price, img, category, description }) => 
                         )}
                     </div>
                 </div>
-
             </div>
-
 
             {showMessage && (
                 <PopupMessage
@@ -91,7 +89,6 @@ export const ProductCard = ({ id, name, price, img, category, description }) => 
                     onCerrar={() => setShowMessage(false)}
                 />
             )}
-
 
         </>
     )
