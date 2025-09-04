@@ -45,7 +45,7 @@ export const ContainerFilter = ({ onCategoryChange }) => {
                                     className='category-checkbox'
                                 />
                                 <span className='category-label'>
-                                    {category.nombre} {/* Usamos el nombre que ya está bien formateado */}
+                                    {category.nombre} 
                                 </span>
                             </label>
                         ))}
