@@ -24,5 +24,6 @@ export const useProduct = (id) => {
     enabled: !!id, 
     staleTime: 5 * 60 * 1000,
     retry: 2, // Reintentar 2 veces en caso de error
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000),
   });
 };
