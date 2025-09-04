@@ -6,7 +6,16 @@ const fetchProducts = async () => {
     throw new Error('Error fetching products');
   }
   const data = await response.json();
-  return Array.isArray(data) ? data : (data.productos || []);
+  const products = Array.isArray(data) ? data : (data.productos || []);
+  
+  return products.map(product => ({
+    id: product._id,
+    title: product.nombre,
+    price: product.precio,
+    image: product.imagen,
+    category: product.categoria?.nombre,
+    description: product.descripcion
+  }));
 };
 
 export const useProducts = () => {
