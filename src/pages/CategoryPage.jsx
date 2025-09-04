@@ -1,28 +1,50 @@
-import React, { useState} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { ProductCard } from '../components/products/ProductCard';
 import { Pagination } from '../components/shared/Pagination';
 import { useCategoryProducts } from '../hooks/products/useCategoryProducts';
+import { useCategories } from '../hooks/products/useCategories';
 import '../styles/CategoryPage.css';
 import '../styles/ProductsPage.css';
 
 export const CategoryPage = () => {
-    const { categoryName } = useParams();
+    const { categorySlug } = useParams();
+    const location = useLocation();
+    const [resolvedCategoryId, setResolvedCategoryId] = useState(location.state?.categoryId);
+    const [resolvedCategoryName, setResolvedCategoryName] = useState(location.state?.categoryName);
+    const { data: categories } = useCategories();
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 12;
 
-    const categoryNameMap = {
-        "ropa": "Ropa",
-        "tecnologia": "Tecnología",
-        "decoracion-y-hogar": "Decoración y Hogar",
-        "deportes": "Deportes"
+    const generateSlug = (name) => {
+        return name.toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]+/g, '');
     };
 
-    const formattedCategoryName = categoryNameMap[categoryName];
+    useEffect(() => {
+        if (!resolvedCategoryId && categories) {
+            const category = categories.find(cat => generateSlug(cat.nombre) === categorySlug);
+            if (category) {
+                setResolvedCategoryId(category._id);
+                setResolvedCategoryName(category.nombre);
+            }
+        }
+    }, [categorySlug, categories, resolvedCategoryId]);
 
-    const { data: categoryProducts, isLoading, error } = useCategoryProducts(categoryName);
+    const { data: categoryProducts, isLoading, error } = useCategoryProducts(resolvedCategoryId);
 
-    // Lógica de paginación
+    const formatCategoryName = (slug) => {
+        if (!slug) return 'Categoría';
+        return slug
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
+
+    const formattedCategoryName = resolvedCategoryName || formatCategoryName(categorySlug);
+
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = categoryProducts ? categoryProducts.slice(indexOfFirstProduct, indexOfLastProduct) : [];
@@ -32,6 +54,15 @@ export const CategoryPage = () => {
         setCurrentPage(pageNumber);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
+    if (!resolvedCategoryId && categories) {
+        return (
+            <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Cargando categoría...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="category-page-container">
@@ -64,13 +95,13 @@ export const CategoryPage = () => {
                     <div className="category-products-list">
                         {currentProducts.map(product => (
                             <ProductCard
-                                key={product.id}
-                                id={product.id}
-                                name={product.title}
-                                price={product.price}
-                                img={product.image}
-                                category={product.category}
-                                description={product.description}
+                                key={product._id}
+                                id={product._id}
+                                name={product.nombre}
+                                price={product.precio}
+                                img={product.imagen}
+                                category={product.categoria?.nombre}
+                                description={product.descripcion}
                             />
                         ))}
                     </div>
@@ -85,7 +116,7 @@ export const CategoryPage = () => {
                 </>
             )}
 
-            {!isLoading && !error && (!categoryProducts || categoryProducts.length === 0) && (
+            {!isLoading && !error && categoryProducts && categoryProducts.length === 0 && (
                 <div className="no-products-message">
                     <p>Actualmente no tenemos productos disponibles en esta categoría.</p>
                     <p>Pronto agregaremos más artículos. ¡Vuelve a visitarnos!</p>

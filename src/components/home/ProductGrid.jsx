@@ -62,13 +62,13 @@ export const ProductGrid = ({ title, products }) => {
                 <div className='product-grid-container' ref={scrollContainer}>
                     {products.map(product => (
                         <ProductCard
-                            key={product.id}
-                            id={product.id}
-                            name={product.name}
-                            price={product.price}
-                            img={product.images[0]}
-                            category={product.category}
-                            description={product.description}
+                            key={product._id}
+                            id={product._id}
+                            name={product.nombre}
+                            price={product.precio}
+                            img={product.imagen}
+                            category={product.categoria?.nombre}
+                            description={product.descripcion}
                         />
                     ))}
                 </div>

@@ -14,5 +14,7 @@ export const useProducts = () => {
     queryKey: ['products'],
     queryFn: fetchProducts,
     staleTime: 5 * 60 * 1000,
+    retry: 2,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000),
   });
 };

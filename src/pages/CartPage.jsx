@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Separator } from '../components/shared/Separator';
 import '../styles/CartPage.css';
 import { HiOutlineTrash, HiOutlineArrowLeft } from 'react-icons/hi';
-import { useCart } from '../hooks/products/useCart'; 
+import { useCart } from '../contexts/useCart'; 
 
 export const CartPage = () => {
   const { cartItems, updateQuantity, removeItem, isLoading } = useCart();
@@ -122,9 +122,11 @@ export const CartPage = () => {
                   <span>${calculateTotal().toFixed(2)}</span>
                 </div>
                 
-                <Link to ='/payment'><button className="checkout-btn">
+                <Link to='/payment'>
+                <button className="checkout-btn">
                   Proceder al pago
-                </button></Link>
+                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -133,5 +135,3 @@ export const CartPage = () => {
     </div>
   );
 };
-
-export default CartPage;
