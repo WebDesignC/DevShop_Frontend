@@ -20,7 +20,7 @@ export const ProductsPage = () => {
         if (selectedCategories.length === 0) {
             return products;
         }
-        return products.filter(product => 
+        return products.filter(product =>
             selectedCategories.includes(product.categoria?._id)
         );
     }, [products, selectedCategories]);
@@ -49,7 +49,7 @@ export const ProductsPage = () => {
                 <h1 className='page-title'>Productos</h1>
                 <div className='error-message'>
                     <p>{error.message}</p>
-                    <button 
+                    <button
                         className='retry-button'
                         onClick={() => window.location.reload()}
                     >
@@ -66,7 +66,7 @@ export const ProductsPage = () => {
 
             <div className='products-grid'>
                 <ContainerFilter onCategoryChange={handleCategoryChange} />
-                
+
                 <div className='products-container'>
                     {isLoading ? (
                         <div className='loading-products'>
@@ -84,17 +84,17 @@ export const ProductsPage = () => {
                                     <div className='products-list'>
                                         {currentProducts.map(product => (
                                             <ProductCard
-                                                key={product._id}
-                                                id={product._id}
-                                                name={product.nombre}
-                                                price={product.precio}
-                                                img={product.imagen}
-                                                category={product.categoria?.nombre}
-                                                description={product.descripcion}
+                                                key={product.id}
+                                                id={product.id}
+                                                name={product.title}
+                                                price={product.price}
+                                                img={product.image}
+                                                category={product.category}
+                                                description={product.description}
                                             />
                                         ))}
                                     </div>
-                                    
+
                                     {totalPages > 1 && (
                                         <Pagination
                                             currentPage={currentPage}

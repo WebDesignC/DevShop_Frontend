@@ -1,16 +1,13 @@
-import { useState } from 'react';
 import { Search } from '../components/shared/Search';
 import '../styles/SearchPage.css';
 import { ProductCard } from '../components/products/ProductCard';
 import { useSearch } from '../hooks/products/useSearch';
 
 export const SearchPage = () => {
-  const { searchResults, isLoading, error, searchTerm, setSearchTerm } = useSearch();
-  const [hasSearched, setHasSearched] = useState(false);
+  const { searchResults, isLoading, error, searchTerm, setSearchTerm, hasSearched } = useSearch();
 
   const handleSearch = (term) => {
     setSearchTerm(term);
-    setHasSearched(true);
   };
 
   return (

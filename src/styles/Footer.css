@@ -4,11 +4,15 @@
     --gris-oscuro: #b5bfe0;
 }
 
-
 .footer {
     background-color: var(--azul-navy);
     padding: 2.5rem 1.5rem 1.5rem;
     color: var(--gris-claro);
+}
+
+.footer a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .footer-content {
@@ -46,12 +50,12 @@
     font-size: 2rem;
 }
 
-.social-icons i {
+.social-icons svg {
     color: var(--gris-claro);
     transition: color 0.3s;
 }
 
-.social-icons i:hover {
+.social-icons svg:hover {
     color: var(--gris-oscuro);
 }
 
