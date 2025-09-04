@@ -15,7 +15,7 @@ export const Search = ({ onSearch }) => {
   const clearSearch = () => {
     setSearchTerm('');
     if (onSearch) {
-      onSearch('');
+      onSearch(''); 
     }
   };
 
