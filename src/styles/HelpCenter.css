@@ -1,0 +1,241 @@
+/* HelpCenter.css */
+.help-center-container {
+    min-height: 100vh;
+    background-color: #f9fafb;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.help-center-content {
+    width: 100%;
+    max-width: 56rem;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.help-center-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 0.75rem;
+}
+
+.help-center-subtitle {
+    color: #4b5563;
+    margin-bottom: 2rem;
+}
+
+.help-center-search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .help-center-search-container {
+        flex-direction: row;
+    }
+}
+
+.help-center-search-input {
+    position: relative;
+    flex: 1;
+}
+
+.help-center-search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #9ca3af;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.help-center-search-input-field {
+    width: 100%;
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    font-size: 1rem;
+}
+
+.help-center-search-input-field:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #e5e7eb;
+}
+
+.help-center-category-select {
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: white;
+    font-size: 1rem;
+}
+
+.help-center-category-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #e5e7eb;
+}
+
+.help-center-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.help-center-category-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.help-center-category-card:hover,
+.help-center-category-card.active {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.help-center-category-icon {
+    font-size: 1.5rem;
+    color: #4f46e5;
+    margin-bottom: 0.5rem;
+}
+
+.help-center-category-card h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+    margin: 0;
+}
+
+.help-center-list {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.help-center-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.help-center-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+    color: #111827;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.help-center-question:hover {
+    background-color: #f9fafb;
+}
+
+.help-center-answer {
+    padding: 0 1rem 1rem 1rem;
+    color: #374151;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.help-center-empty {
+    border-radius: 1rem;
+    border: 1px dashed #d1d5db;
+    padding: 1.5rem;
+    color: #4b5563;
+    background-color: white;
+}
+
+.help-center-contact {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.help-center-contact-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.help-center-contact-text {
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+.help-center-contact-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .help-center-contact-options {
+        flex-direction: row;
+    }
+}
+
+.help-center-contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    background-color: #f9fafb;
+}
+
+.help-center-contact-link:hover {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f3f4f6;
+    transform: translateY(-1px);
+}
+
+.help-center-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.help-center-chevron {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.2s ease;
+}
+
+.help-center-chevron.open {
+    transform: rotate(180deg);
+}
