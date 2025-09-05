@@ -2,34 +2,41 @@ import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import {FaGoogle} from 'react-icons/fa';
 import '../styles/login.css';
 
-const loginSchema = z.object({
-  email: z.string().email({ message: "Correo inválido" }),
-  password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
-});
+// Esquemas de validación
+    const loginSchema = z.object({
+      email: z.string().email({ message: "Correo inválido" }),
+      password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
+    });
 
-const registerSchema = z.object({
-  name: z.string().min(2, { message: "Nombre requerido" }),
-  apellido: z.string().min(2, { message: "Apellidos requeridos" }),
-  fechaNacimiento: z.string().min(1, { message: "Fecha de nacimiento requerida" })
-    .refine((val) => {
-      const birthDate = new Date(val);
-      const today = new Date();
-      const age = today.getFullYear() - birthDate.getFullYear();
-      return age >= 18;
-    }, { message: "Debes tener al menos 18 años" }),
-  nacionalidad: z.string().min(3, { message: "Nacionalidad requerida" }),
-  genero: z.string().min(1, { message: "Selecciona el Género" }),
-  email: z.string().email({ message: "Correo inválido" }),
-  password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
-});
+    const registerSchema = z.object({
+      name: z.string().min(2, { message: "Nombre requerido" }),
+      apellido: z.string().min(2, { message: "Apellidos requeridos" }),
+      fechaNacimiento: z.string().min(1, { message: "Fecha requerida" })
+        .refine((val) => {
+          const birthDate = new Date(val);
+          const today = new Date();
+          const age = today.getFullYear() - birthDate.getFullYear();
+          return age >= 18;
+        }, { message: "Debes tener al menos 18 años" }),
+      nacionalidad: z.string().min(3, { message: "Nacionalidad requerida" }),
+      genero: z.string().min(1, { message: "Selecciona el Género" }),
+      email: z.string().email({ message: "Correo inválido" }),
+      password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
+    });
 
 export const LoginPage = () => {
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showErrors, setShowErrors] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [isRegistering, setIsRegistering] = useState(false); //Registrarse
+  const [showPassword, setShowPassword] = useState(false); //Mostrar contraseña
+  const [showErrors, setShowErrors] = useState(false); //Mostrar errores
+  const [isLoading, setIsLoading] = useState(false); 
+  const [authError, setAuthError] = useState(""); //Errores de autenticación
+  const [authSuccess, setAuthSuccess] = useState(""); //Éxito de autenticación
+  const [googleLoading, setGoogleLoading] = useState(false); //Carga de Google
   
   const firstInputRef = useRef(null);
   const emailInputRef = useRef(null);
@@ -39,62 +46,145 @@ export const LoginPage = () => {
     mode: "onChange"
   });
 
-
   const toggleFormMode = (isRegister) => {
-    setShowErrors(false); 
+    setShowErrors(false);
+    setAuthError("");
+    setAuthSuccess("");
     setIsRegistering(isRegister);
-    reset(); 
-    
+    reset();
     
     setTimeout(() => {
-      if (firstInputRef.current) {
-        firstInputRef.current.focus();
-      }
+      if (firstInputRef.current) firstInputRef.current.focus();
     }, 100);
   };
 
-  
+
+
   useEffect(() => {
     if (isRegistering) {
-  
       setTimeout(() => {
-        if (firstInputRef.current) {
-          firstInputRef.current.focus();
-        }
+        if (firstInputRef.current) firstInputRef.current.focus();
       }, 100);
     } else {
       setTimeout(() => {
-        if (emailInputRef.current) {
-          emailInputRef.current.focus();
-        }
+        if (emailInputRef.current) emailInputRef.current.focus();
       }, 100);
     }
   }, [isRegistering]);
 
-  const onSubmit = async (data) => {
-    console.log(isRegistering ? "Registro:" : "Login:", data);
-    // Aquí iría la lógica de autenticación/registro
+
+  const handleRegister = async (userData) => {
+
+    const response = await fetch('https://mercartback.vercel.app/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userData)
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
+    return data;    
   };
 
-  
+  const handleLogin = async (credentials) => {
+
+    const response = await fetch('https://mercartback.vercel.app/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials)
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
+    return data;
+  };
+
+  const handleGoogleAuth = async (userInfo) => {
+    const response = await fetch('https://mercartback.vercel.app/google-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userInfo)
+    });
+    return await response.json();
+    
+    
+  };
+
+  // Función para manejar el envío del formulario
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    setAuthError("");
+    setAuthSuccess("");
+    
+    try {
+      if (isRegistering) {
+        // Proceso de registro
+        const newUser = await handleRegister(data);
+        setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${newUser.name}`);
+        
+        // Cambiar a modo login después de registro exitoso
+        setTimeout(() => {
+          setIsRegistering(false);
+          reset();
+        }, 2000);
+      } else {
+        // Proceso de login
+        const user = await handleLogin(data);
+        setAuthSuccess(`¡Bienvenido de nuevo ${user.name}!`);
+        
+        // Guardar usuario (aquí guardarías el token JWT en lugar del objeto usuario)
+        localStorage.setItem('authToken', 'token-aqui'); // REEMPLAZA CON TU TOKEN
+      }
+    } catch (error) {
+      setAuthError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Función para login con Google
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setGoogleLoading(true);
+      setAuthError("");
+      
+      try {
+        // Obtener información del usuario de Google
+        const userInfo = await axios.get(
+          'https://www.googleapis.com/oauth2/v3/userinfo',
+          { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
+        );
+
+        // Autenticar con tu backend
+        const userData = await handleGoogleAuth(userInfo.data);
+        setAuthSuccess(`¡Bienvenido ${userData.name}!`);
+        
+        // Guardar token de autenticación
+        localStorage.setItem('authToken', 'token-google-aqui'); // REEMPLAZA CON TU TOKEN
+      } catch (error) {
+        setAuthError('Error al autenticar con Google. Intenta de nuevo.');
+      } finally {
+        setGoogleLoading(false);
+      }
+    },
+    onError: () => {
+      setAuthError('Error al autenticar con Google. Intenta de nuevo.');
+      setGoogleLoading(false);
+    },
+  });
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     
-  
     const isValid = await trigger();
     
     if (isValid) {
-  
       handleSubmit(onSubmit)();
     } else {
-  
       setShowErrors(true);
+      setAuthError("Completa todos los campos requeridos.");
       
-  
       const errorFields = Object.keys(errors);
       if (errorFields.length > 0) {
-        const firstErrorField = errorFields[0];
-        setFocus(firstErrorField);
+        setFocus(errorFields[0]);
       }
     }
   };
@@ -121,6 +211,7 @@ export const LoginPage = () => {
                   type="button"
                   className={`selector-btn ${!isRegistering ? 'active' : ''}`}
                   onClick={() => toggleFormMode(false)}
+                  disabled={isLoading || googleLoading}
                 >
                   Iniciar Sesión
                 </button>
@@ -128,6 +219,7 @@ export const LoginPage = () => {
                   type="button"
                   className={`selector-btn ${isRegistering ? 'active' : ''}`}
                   onClick={() => toggleFormMode(true)}
+                  disabled={isLoading || googleLoading}
                 >
                   Crear Cuenta
                 </button>
@@ -138,6 +230,27 @@ export const LoginPage = () => {
                 alt="MercArt Logo"
                 className="login-logo"
               />
+              
+              {/* Botón de Google */}
+              <div className="google-auth-section">
+                <button 
+                  className="google-auth-btn"
+                  onClick={() => loginWithGoogle()}
+                  disabled={googleLoading || isLoading}
+                  type="button"
+                >
+                  <FaGoogle />
+                  {googleLoading ? 'Procesando...' : `Continuar con Google`}
+                </button>
+                
+                <div className="separator">
+                  <span>o</span>
+                </div>
+              </div>
+              
+              {/* Mensajes de éxito y error */}
+              {authError && <div className="auth-message error">{authError}</div>}
+              {authSuccess && <div className="auth-message success">{authSuccess}</div>}
               
               <form className="login-form" onSubmit={handleFormSubmit}>
                 {isRegistering && (
@@ -153,6 +266,7 @@ export const LoginPage = () => {
                           register("name").ref(e);
                           firstInputRef.current = e;
                         }}
+                        disabled={isLoading || googleLoading}
                       />
                       {showErrors && errors.name && <span className="error-message">{errors.name.message}</span>}
                     </div>
@@ -164,6 +278,7 @@ export const LoginPage = () => {
                         id="apellido" 
                         {...register("apellido")} 
                         placeholder="ej. Perez García" 
+                        disabled={isLoading || googleLoading}
                       />
                       {showErrors && errors.apellido && <span className="error-message">{errors.apellido.message}</span>}
                     </div>
@@ -174,6 +289,7 @@ export const LoginPage = () => {
                         type="date" 
                         id="fechaNacimiento" 
                         {...register("fechaNacimiento")} 
+                        disabled={isLoading || googleLoading}
                       />
                       {showErrors && errors.fechaNacimiento && <span className="error-message">{errors.fechaNacimiento.message}</span>}
                     </div>
@@ -184,6 +300,7 @@ export const LoginPage = () => {
                         id="nacionalidad" 
                         {...register("nacionalidad")}
                         defaultValue=""
+                        disabled={isLoading || googleLoading}
                       >
                         <option value="" disabled>Selecciona tu nacionalidad</option>
                         <option value="mexicana">Mexicana</option>
@@ -202,6 +319,7 @@ export const LoginPage = () => {
                         id="genero"
                         {...register("genero")}
                         defaultValue=""
+                        disabled={isLoading || googleLoading}
                       >
                         <option value="" disabled>Selecciona tu género</option>
                         <option value="Masculino">Masculino</option>
@@ -226,6 +344,7 @@ export const LoginPage = () => {
                       emailInputRef.current = e;
                       if (!isRegistering) firstInputRef.current = e;
                     }}
+                    disabled={isLoading || googleLoading}
                   />
                   {showErrors && errors.email && <span className="error-message">{errors.email.message}</span>}
                 </div>
@@ -238,10 +357,11 @@ export const LoginPage = () => {
                       id="password" 
                       {...register("password")}
                       placeholder="Contraseña"
+                      disabled={isLoading || googleLoading}
                     />
                     <span 
                       className="toggle-visibility"
-                      onClick={() => setShowPassword(!showPassword)}
+                      onClick={() => !isLoading && !googleLoading && setShowPassword(!showPassword)}
                       role="button"
                       aria-label="Mostrar u ocultar contraseña"
                     >
@@ -251,8 +371,12 @@ export const LoginPage = () => {
                   {showErrors && errors.password && <span className="error-message">{errors.password.message}</span>}
                 </div>
 
-                <button type="submit" className="login-submit-btn">
-                  {isRegistering ? "Registrarse" : "Iniciar Sesión"}
+                <button 
+                  type="submit" 
+                  className="login-submit-btn"
+                  disabled={isLoading || googleLoading}
+                >
+                  {isLoading ? "Procesando..." : (isRegistering ? "Registrarse" : "Iniciar Sesión")}
                 </button>
               </form>
             </div>
