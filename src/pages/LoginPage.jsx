@@ -3,40 +3,40 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
-import {FaGoogle} from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa';
+import { authService } from '../services/authService';
 import '../styles/login.css';
 
 // Esquemas de validación
-    const loginSchema = z.object({
-      email: z.string().email({ message: "Correo inválido" }),
-      password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
-    });
+const loginSchema = z.object({
+  email: z.string().email({ message: "Correo inválido" }),
+  password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
+});
 
-    const registerSchema = z.object({
-      name: z.string().min(2, { message: "Nombre requerido" }),
-      apellido: z.string().min(2, { message: "Apellidos requeridos" }),
-      fechaNacimiento: z.string().min(1, { message: "Fecha requerida" })
-        .refine((val) => {
-          const birthDate = new Date(val);
-          const today = new Date();
-          const age = today.getFullYear() - birthDate.getFullYear();
-          return age >= 18;
-        }, { message: "Debes tener al menos 18 años" }),
-      nacionalidad: z.string().min(3, { message: "Nacionalidad requerida" }),
-      genero: z.string().min(1, { message: "Selecciona el Género" }),
-      email: z.string().email({ message: "Correo inválido" }),
-      password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
-    });
+const registerSchema = z.object({
+  name: z.string().min(2, { message: "Nombre requerido" }),
+  apellido: z.string().min(2, { message: "Apellidos requeridos" }),
+  fechaNacimiento: z.string().min(1, { message: "Fecha requerida" })
+    .refine((val) => {
+      const birthDate = new Date(val);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      return age >= 18;
+    }, { message: "Debes tener al menos 18 años" }),
+  nacionalidad: z.string().min(3, { message: "Nacionalidad requerida" }),
+  genero: z.string().min(1, { message: "Selecciona el Género" }),
+  email: z.string().email({ message: "Correo inválido" }),
+  password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
+});
 
 export const LoginPage = () => {
-  const [isRegistering, setIsRegistering] = useState(false); //Registrarse
-  const [showPassword, setShowPassword] = useState(false); //Mostrar contraseña
-  const [showErrors, setShowErrors] = useState(false); //Mostrar errores
-  const [isLoading, setIsLoading] = useState(false); 
-  const [authError, setAuthError] = useState(""); //Errores de autenticación
-  const [authSuccess, setAuthSuccess] = useState(""); //Éxito de autenticación
-  const [googleLoading, setGoogleLoading] = useState(false); //Carga de Google
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState("");
+  const [authSuccess, setAuthSuccess] = useState("");
+  const [googleLoading, setGoogleLoading] = useState(false);
   
   const firstInputRef = useRef(null);
   const emailInputRef = useRef(null);
@@ -58,8 +58,6 @@ export const LoginPage = () => {
     }, 100);
   };
 
-
-
   useEffect(() => {
     if (isRegistering) {
       setTimeout(() => {
@@ -72,42 +70,6 @@ export const LoginPage = () => {
     }
   }, [isRegistering]);
 
-
-  const handleRegister = async (userData) => {
-
-    const response = await fetch('https://mercartback.vercel.app/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData)
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message);
-    return data;    
-  };
-
-  const handleLogin = async (credentials) => {
-
-    const response = await fetch('https://mercartback.vercel.app/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials)
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message);
-    return data;
-  };
-
-  const handleGoogleAuth = async (userInfo) => {
-    const response = await fetch('https://mercartback.vercel.app/google-auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userInfo)
-    });
-    return await response.json();
-    
-    
-  };
-
   // Función para manejar el envío del formulario
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -117,7 +79,7 @@ export const LoginPage = () => {
     try {
       if (isRegistering) {
         // Proceso de registro
-        const newUser = await handleRegister(data);
+        const newUser = await authService.register(data);
         setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${newUser.name}`);
         
         // Cambiar a modo login después de registro exitoso
@@ -127,11 +89,12 @@ export const LoginPage = () => {
         }, 2000);
       } else {
         // Proceso de login
-        const user = await handleLogin(data);
+        const user = await authService.login(data);
         setAuthSuccess(`¡Bienvenido de nuevo ${user.name}!`);
         
-        // Guardar usuario (aquí guardarías el token JWT en lugar del objeto usuario)
-        localStorage.setItem('authToken', 'token-aqui'); // REEMPLAZA CON TU TOKEN
+        // Guardar token de autenticación
+        localStorage.setItem('authToken', user.token);
+        // Redirigir al usuario o actualizar el estado de la aplicación
       }
     } catch (error) {
       setAuthError(error.message);
@@ -147,18 +110,13 @@ export const LoginPage = () => {
       setAuthError("");
       
       try {
-        // Obtener información del usuario de Google
-        const userInfo = await axios.get(
-          'https://www.googleapis.com/oauth2/v3/userinfo',
-          { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
-        );
-
-        // Autenticar con tu backend
-        const userData = await handleGoogleAuth(userInfo.data);
+        // Autenticar con Google a través del servicio
+        const userData = await authService.googleAuth(tokenResponse.access_token);
         setAuthSuccess(`¡Bienvenido ${userData.name}!`);
         
         // Guardar token de autenticación
-        localStorage.setItem('authToken', 'token-google-aqui'); // REEMPLAZA CON TU TOKEN
+        localStorage.setItem('authToken', userData.token);
+        // Redirigir al usuario o actualizar el estado de la aplicación
       } catch (error) {
         setAuthError('Error al autenticar con Google. Intenta de nuevo.');
       } finally {
@@ -231,7 +189,7 @@ export const LoginPage = () => {
                 className="login-logo"
               />
               
-              {/* Botón de Google */}
+              {/* Botón de Google con mejor diseño */}
               <div className="google-auth-section">
                 <button 
                   className="google-auth-btn"
@@ -239,8 +197,10 @@ export const LoginPage = () => {
                   disabled={googleLoading || isLoading}
                   type="button"
                 >
-                  <FaGoogle />
-                  {googleLoading ? 'Procesando...' : `Continuar con Google`}
+                  <div className="google-btn-content">
+                    <FaGoogle className="google-icon" />
+                    {googleLoading ? 'Procesando...' : 'Continuar con Google'}
+                  </div>
                 </button>
                 
                 <div className="separator">
