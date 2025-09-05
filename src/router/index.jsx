@@ -5,7 +5,7 @@ import { RootLayout } from "../layouts/RootLayout";
 import {
     HomePage, ProductsPage, AboutPage, ProductPage,
     CartPage, NotFoundPage, LoginPage, RegisterPage,
-    CategoryPage, SearchPage, PoliticaDePrivacidad, DataBreachAlertPage, FAQPage
+    CategoryPage, SearchPage, PoliticaDePrivacidad, DataBreachAlertPage, FAQPage,HelpCenter
 } from '../pages'
 
 export const router = createBrowserRouter([
@@ -68,6 +68,10 @@ export const router = createBrowserRouter([
             {
                 path: '/faq',
                 element: <FAQPage />
+            },
+            {
+                path: '/help-center',
+                element: <HelpCenter />
             },
         ]
     },
