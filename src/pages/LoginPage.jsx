@@ -15,8 +15,8 @@ const loginSchema = z.object({
 });
 
 const registerSchema = z.object({
-  name: z.string().min(2, { message: "Nombre requerido" }),
-  apellido: z.string().min(2, { message: "Apellidos requeridos" }),
+  nombre: z.string().min(2, { message: "Nombre requerido" }),
+  apellidos: z.string().min(2, { message: "Apellidos requeridos" }),
   fechaNacimiento: z.string().min(1, { message: "Fecha requerida" })
     .refine((val) => {
       const birthDate = new Date(val);
@@ -80,7 +80,7 @@ export const LoginPage = () => {
     try {
       if (isRegistering) {
         // Proceso de registro
-        const response = await fetch(`${API_BASE_URL}/api/usuarios`, {
+        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export const LoginPage = () => {
         }
 
         const newUser = await response.json();
-        setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${newUser.name}`);
+        setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${newUser.nombre}`);
         
         // Cambiar a modo login después de registro exitoso
         setTimeout(() => {
@@ -120,7 +120,7 @@ export const LoginPage = () => {
         }
 
         const userData = await response.json();
-        setAuthSuccess(`¡Bienvenido de nuevo ${userData.user.name}!`);
+        setAuthSuccess(`¡Bienvenido de nuevo ${userData.user.nombre}!`);
         
         // Guardar token de autenticación
         localStorage.setItem('authToken', userData.token);
@@ -233,10 +233,10 @@ export const LoginPage = () => {
                       <input 
                         type="text" 
                         id="name" 
-                        {...register("name")} 
+                        {...register("nombre")} 
                         placeholder="ej. Carlos"
                         ref={(e) => {
-                          register("name").ref(e);
+                          register("nombre").ref(e);
                           firstInputRef.current = e;
                         }}
                         disabled={isLoading || googleLoading}
@@ -245,15 +245,15 @@ export const LoginPage = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="apellido">Apellidos:</label>
+                      <label htmlFor="apellidos">Apellidos:</label>
                       <input 
                         type="text" 
-                        id="apellido" 
-                        {...register("apellido")} 
+                        id="apellidos" 
+                        {...register("apellidos")} 
                         placeholder="ej. Perez García" 
                         disabled={isLoading || googleLoading}
                       />
-                      {showErrors && errors.apellido && <span className="error-message">{errors.apellido.message}</span>}
+                      {showErrors && errors.apellidos && <span className="error-message">{errors.apellidos.message}</span>}
                     </div>
 
                     <div className="form-group">
