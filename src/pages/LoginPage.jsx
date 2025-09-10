@@ -15,8 +15,8 @@ const loginSchema = z.object({
 });
 
 const registerSchema = z.object({
-  name: z.string().min(2, { message: "Nombre requerido" }),
-  apellido: z.string().min(2, { message: "Apellidos requeridos" }),
+  nombre: z.string().min(2, { message: "Nombre requerido" }),
+  apellidos: z.string().min(2, { message: "Apellidos requeridos" }),
   fechaNacimiento: z.string().min(1, { message: "Fecha requerida" })
     .refine((val) => {
       const birthDate = new Date(val);
@@ -70,64 +70,100 @@ export const LoginPage = () => {
       }, 100);
     }
   }, [isRegistering]);
-
-  // Función para manejar el envío del formulario
+  // Manejo del submit con validaciones Mejorado
   const onSubmit = async (data) => {
     setIsLoading(true);
     setAuthError("");
     setAuthSuccess("");
-    
+
     try {
+      // Validación simple en cliente (evita enviar requests inválidos)
       if (isRegistering) {
-        // Proceso de registro
-        const response = await fetch(`${API_BASE_URL}/api/usuarios`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
+        const required = ["nombre", "apellidos", "fechaNacimiento", "nacionalidad", "genero", "email", "password"];
+        const missing = required.filter((k) => !data[k] || (typeof data[k] === "string" && data[k].trim() === ""));
+        if (missing.length) {
+          throw new Error("Completa todos los campos requeridos.");
+        }
+      } else {
+        if (!data.email || !data.password) {
+          throw new Error("Completa el correo y la contraseña.");
+        }
+      }
+
+      if (isRegistering) {
+        // Armar payload exactamente como tu schema de Mongoose espera
+        const payload = {
+          nombre: data.nombre,
+          apellidos: data.apellidos,
+          fechaNacimiento: data.fechaNacimiento,
+          nacionalidad: data.nacionalidad,
+          genero: data.genero,
+          email: data.email,
+          password: data.password
+        };
+
+        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Error en el registro');
+          // intentar leer mensaje JSON del backend, si existe
+          let errMsg = `Error en el registro (${response.status})`;
+          try {
+            const err = await response.json();
+            errMsg = err.message || JSON.stringify(err);
+          } catch (e) { /* ignore parse error */ }
+          throw new Error(errMsg);
         }
 
         const newUser = await response.json();
-        setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${newUser.name}`);
-        
+        const displayName = newUser.nombre || newUser.name || newUser.email || "usuario";
+        setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${displayName}`);
+
         // Cambiar a modo login después de registro exitoso
         setTimeout(() => {
           setIsRegistering(false);
           reset();
-        }, 2000);
+        }, 1500);
       } else {
-        // Proceso de login
+        // Login
         const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password
-          }),
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: data.email, password: data.password }),
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Error en el login');
+          let errMsg = `Error en el login (${response.status})`;
+          try {
+            const err = await response.json();
+            errMsg = err.message || JSON.stringify(err);
+          } catch (e) { /* ignore parse error */ }
+          throw new Error(errMsg);
         }
 
         const userData = await response.json();
-        setAuthSuccess(`¡Bienvenido de nuevo ${userData.user.name}!`);
-        
-        // Guardar token de autenticación
-        localStorage.setItem('authToken', userData.token);
-        // Redirigir al usuario o actualizar el estado de la aplicación
+        // Ser tolerante con la forma de la respuesta del backend
+        const user = userData.user || userData;
+        const token = userData.token || userData.accessToken || null;
+        const displayName = (user && (user.nombre || user.name || user.email)) || "usuario";
+
+        setAuthSuccess(`¡Bienvenido de nuevo ${displayName}!`);
+
+        if (token) {
+          localStorage.setItem("authToken", token);
+        }
+        // opcional: guardar info mínima del usuario
+        try {
+          localStorage.setItem("authUser", JSON.stringify(user));
+        } catch (e) { /* ignore */ }
+
+        // Redirigir a inicio con sesion iniciada... A chambiar 
       }
     } catch (error) {
-      setAuthError(error.message);
+      setAuthError(error.message || "Ocurrió un error inesperado.");
     } finally {
       setIsLoading(false);
     }
@@ -233,10 +269,10 @@ export const LoginPage = () => {
                       <input 
                         type="text" 
                         id="name" 
-                        {...register("name")} 
+                        {...register("nombre")} 
                         placeholder="ej. Carlos"
                         ref={(e) => {
-                          register("name").ref(e);
+                          register("nombre").ref(e);
                           firstInputRef.current = e;
                         }}
                         disabled={isLoading || googleLoading}
@@ -245,15 +281,15 @@ export const LoginPage = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="apellido">Apellidos:</label>
+                      <label htmlFor="apellidos">Apellidos:</label>
                       <input 
                         type="text" 
-                        id="apellido" 
-                        {...register("apellido")} 
+                        id="apellidos" 
+                        {...register("apellidos")} 
                         placeholder="ej. Perez García" 
                         disabled={isLoading || googleLoading}
                       />
-                      {showErrors && errors.apellido && <span className="error-message">{errors.apellido.message}</span>}
+                      {showErrors && errors.apellidos && <span className="error-message">{errors.apellidos.message}</span>}
                     </div>
 
                     <div className="form-group">
