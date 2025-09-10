@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useGoogleLogin } from '@react-oauth/google';
 import { FaGoogle } from 'react-icons/fa';
-import { authService } from '../services/authService';
 import '../styles/login.css';
+
+// URL base de tu API
+const API_BASE_URL = "https://mercartback.vercel.app";
 
 // Esquemas de validación
 const loginSchema = z.object({
@@ -79,7 +80,20 @@ export const LoginPage = () => {
     try {
       if (isRegistering) {
         // Proceso de registro
-        const newUser = await authService.register(data);
+        const response = await fetch(`${API_BASE_URL}/api/usuarios`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Error en el registro');
+        }
+
+        const newUser = await response.json();
         setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${newUser.name}`);
         
         // Cambiar a modo login después de registro exitoso
@@ -89,11 +103,27 @@ export const LoginPage = () => {
         }, 2000);
       } else {
         // Proceso de login
-        const user = await authService.login(data);
-        setAuthSuccess(`¡Bienvenido de nuevo ${user.name}!`);
+        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Error en el login');
+        }
+
+        const userData = await response.json();
+        setAuthSuccess(`¡Bienvenido de nuevo ${userData.user.name}!`);
         
         // Guardar token de autenticación
-        localStorage.setItem('authToken', user.token);
+        localStorage.setItem('authToken', userData.token);
         // Redirigir al usuario o actualizar el estado de la aplicación
       }
     } catch (error) {
@@ -104,30 +134,13 @@ export const LoginPage = () => {
   };
 
   // Función para login con Google
-  const loginWithGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      setGoogleLoading(true);
-      setAuthError("");
-      
-      try {
-        // Autenticar con Google a través del servicio
-        const userData = await authService.googleAuth(tokenResponse.access_token);
-        setAuthSuccess(`¡Bienvenido ${userData.name}!`);
-        
-        // Guardar token de autenticación
-        localStorage.setItem('authToken', userData.token);
-        // Redirigir al usuario o actualizar el estado de la aplicación
-      } catch (error) {
-        setAuthError('Error al autenticar con Google. Intenta de nuevo.');
-      } finally {
-        setGoogleLoading(false);
-      }
-    },
-    onError: () => {
-      setAuthError('Error al autenticar con Google. Intenta de nuevo.');
-      setGoogleLoading(false);
-    },
-  });
+  const loginWithGoogle = () => {
+    setGoogleLoading(true);
+    setAuthError("");
+    
+    // Redirigir a la ruta de autenticación de Google en tu backend
+    window.location.href = `${API_BASE_URL}/api/auth/google`;
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -193,7 +206,7 @@ export const LoginPage = () => {
               <div className="google-auth-section">
                 <button 
                   className="google-auth-btn"
-                  onClick={() => loginWithGoogle()}
+                  onClick={loginWithGoogle}
                   disabled={googleLoading || isLoading}
                   type="button"
                 >
