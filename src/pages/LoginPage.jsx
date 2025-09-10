@@ -2,17 +2,22 @@ import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FaGoogle } from 'react-icons/fa';
 import '../styles/login.css';
 
+// URL base de tu API
+const API_BASE_URL = "https://mercartback.vercel.app";
+
+// Esquemas de validación
 const loginSchema = z.object({
   email: z.string().email({ message: "Correo inválido" }),
-  password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
+  password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
 });
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: "Nombre requerido" }),
   apellido: z.string().min(2, { message: "Apellidos requeridos" }),
-  fechaNacimiento: z.string().min(1, { message: "Fecha de nacimiento requerida" })
+  fechaNacimiento: z.string().min(1, { message: "Fecha requerida" })
     .refine((val) => {
       const birthDate = new Date(val);
       const today = new Date();
@@ -22,14 +27,17 @@ const registerSchema = z.object({
   nacionalidad: z.string().min(3, { message: "Nacionalidad requerida" }),
   genero: z.string().min(1, { message: "Selecciona el Género" }),
   email: z.string().email({ message: "Correo inválido" }),
-  password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
+  password: z.string().min(6, { message: "Mínimo 6 caracteres" }),
 });
 
 export const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState("");
+  const [authSuccess, setAuthSuccess] = useState("");
+  const [googleLoading, setGoogleLoading] = useState(false);
   
   const firstInputRef = useRef(null);
   const emailInputRef = useRef(null);
@@ -39,62 +47,115 @@ export const LoginPage = () => {
     mode: "onChange"
   });
 
-
   const toggleFormMode = (isRegister) => {
-    setShowErrors(false); 
+    setShowErrors(false);
+    setAuthError("");
+    setAuthSuccess("");
     setIsRegistering(isRegister);
-    reset(); 
-    
+    reset();
     
     setTimeout(() => {
-      if (firstInputRef.current) {
-        firstInputRef.current.focus();
-      }
+      if (firstInputRef.current) firstInputRef.current.focus();
     }, 100);
   };
 
-  
   useEffect(() => {
     if (isRegistering) {
-  
       setTimeout(() => {
-        if (firstInputRef.current) {
-          firstInputRef.current.focus();
-        }
+        if (firstInputRef.current) firstInputRef.current.focus();
       }, 100);
     } else {
       setTimeout(() => {
-        if (emailInputRef.current) {
-          emailInputRef.current.focus();
-        }
+        if (emailInputRef.current) emailInputRef.current.focus();
       }, 100);
     }
   }, [isRegistering]);
 
+  // Función para manejar el envío del formulario
   const onSubmit = async (data) => {
-    console.log(isRegistering ? "Registro:" : "Login:", data);
-    // Aquí iría la lógica de autenticación/registro
+    setIsLoading(true);
+    setAuthError("");
+    setAuthSuccess("");
+    
+    try {
+      if (isRegistering) {
+        // Proceso de registro
+        const response = await fetch(`${API_BASE_URL}/api/usuarios`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Error en el registro');
+        }
+
+        const newUser = await response.json();
+        setAuthSuccess(`¡Cuenta creada exitosamente! Bienvenido/a ${newUser.name}`);
+        
+        // Cambiar a modo login después de registro exitoso
+        setTimeout(() => {
+          setIsRegistering(false);
+          reset();
+        }, 2000);
+      } else {
+        // Proceso de login
+        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Error en el login');
+        }
+
+        const userData = await response.json();
+        setAuthSuccess(`¡Bienvenido de nuevo ${userData.user.name}!`);
+        
+        // Guardar token de autenticación
+        localStorage.setItem('authToken', userData.token);
+        // Redirigir al usuario o actualizar el estado de la aplicación
+      }
+    } catch (error) {
+      setAuthError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  
+  // Función para login con Google
+  const loginWithGoogle = () => {
+    setGoogleLoading(true);
+    setAuthError("");
+    
+    // Redirigir a la ruta de autenticación de Google en tu backend
+    window.location.href = `${API_BASE_URL}/api/auth/google`;
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     
-  
     const isValid = await trigger();
     
     if (isValid) {
-  
       handleSubmit(onSubmit)();
     } else {
-  
       setShowErrors(true);
+      setAuthError("Completa todos los campos requeridos.");
       
-  
       const errorFields = Object.keys(errors);
       if (errorFields.length > 0) {
-        const firstErrorField = errorFields[0];
-        setFocus(firstErrorField);
+        setFocus(errorFields[0]);
       }
     }
   };
@@ -121,6 +182,7 @@ export const LoginPage = () => {
                   type="button"
                   className={`selector-btn ${!isRegistering ? 'active' : ''}`}
                   onClick={() => toggleFormMode(false)}
+                  disabled={isLoading || googleLoading}
                 >
                   Iniciar Sesión
                 </button>
@@ -128,6 +190,7 @@ export const LoginPage = () => {
                   type="button"
                   className={`selector-btn ${isRegistering ? 'active' : ''}`}
                   onClick={() => toggleFormMode(true)}
+                  disabled={isLoading || googleLoading}
                 >
                   Crear Cuenta
                 </button>
@@ -138,6 +201,29 @@ export const LoginPage = () => {
                 alt="MercArt Logo"
                 className="login-logo"
               />
+              
+              {/* Botón de Google con mejor diseño */}
+              <div className="google-auth-section">
+                <button 
+                  className="google-auth-btn"
+                  onClick={loginWithGoogle}
+                  disabled={googleLoading || isLoading}
+                  type="button"
+                >
+                  <div className="google-btn-content">
+                    <FaGoogle className="google-icon" />
+                    {googleLoading ? 'Procesando...' : 'Continuar con Google'}
+                  </div>
+                </button>
+                
+                <div className="separator">
+                  <span>o</span>
+                </div>
+              </div>
+              
+              {/* Mensajes de éxito y error */}
+              {authError && <div className="auth-message error">{authError}</div>}
+              {authSuccess && <div className="auth-message success">{authSuccess}</div>}
               
               <form className="login-form" onSubmit={handleFormSubmit}>
                 {isRegistering && (
@@ -153,6 +239,7 @@ export const LoginPage = () => {
                           register("name").ref(e);
                           firstInputRef.current = e;
                         }}
+                        disabled={isLoading || googleLoading}
                       />
                       {showErrors && errors.name && <span className="error-message">{errors.name.message}</span>}
                     </div>
@@ -164,6 +251,7 @@ export const LoginPage = () => {
                         id="apellido" 
                         {...register("apellido")} 
                         placeholder="ej. Perez García" 
+                        disabled={isLoading || googleLoading}
                       />
                       {showErrors && errors.apellido && <span className="error-message">{errors.apellido.message}</span>}
                     </div>
@@ -174,6 +262,7 @@ export const LoginPage = () => {
                         type="date" 
                         id="fechaNacimiento" 
                         {...register("fechaNacimiento")} 
+                        disabled={isLoading || googleLoading}
                       />
                       {showErrors && errors.fechaNacimiento && <span className="error-message">{errors.fechaNacimiento.message}</span>}
                     </div>
@@ -184,6 +273,7 @@ export const LoginPage = () => {
                         id="nacionalidad" 
                         {...register("nacionalidad")}
                         defaultValue=""
+                        disabled={isLoading || googleLoading}
                       >
                         <option value="" disabled>Selecciona tu nacionalidad</option>
                         <option value="mexicana">Mexicana</option>
@@ -202,6 +292,7 @@ export const LoginPage = () => {
                         id="genero"
                         {...register("genero")}
                         defaultValue=""
+                        disabled={isLoading || googleLoading}
                       >
                         <option value="" disabled>Selecciona tu género</option>
                         <option value="Masculino">Masculino</option>
@@ -226,6 +317,7 @@ export const LoginPage = () => {
                       emailInputRef.current = e;
                       if (!isRegistering) firstInputRef.current = e;
                     }}
+                    disabled={isLoading || googleLoading}
                   />
                   {showErrors && errors.email && <span className="error-message">{errors.email.message}</span>}
                 </div>
@@ -238,10 +330,11 @@ export const LoginPage = () => {
                       id="password" 
                       {...register("password")}
                       placeholder="Contraseña"
+                      disabled={isLoading || googleLoading}
                     />
                     <span 
                       className="toggle-visibility"
-                      onClick={() => setShowPassword(!showPassword)}
+                      onClick={() => !isLoading && !googleLoading && setShowPassword(!showPassword)}
                       role="button"
                       aria-label="Mostrar u ocultar contraseña"
                     >
@@ -251,8 +344,12 @@ export const LoginPage = () => {
                   {showErrors && errors.password && <span className="error-message">{errors.password.message}</span>}
                 </div>
 
-                <button type="submit" className="login-submit-btn">
-                  {isRegistering ? "Registrarse" : "Iniciar Sesión"}
+                <button 
+                  type="submit" 
+                  className="login-submit-btn"
+                  disabled={isLoading || googleLoading}
+                >
+                  {isLoading ? "Procesando..." : (isRegistering ? "Registrarse" : "Iniciar Sesión")}
                 </button>
               </form>
             </div>
